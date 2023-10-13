@@ -1,6 +1,8 @@
 note: we will be holding 2 streams as part of this event.  Here are the day. Link coming soon.
 
-October 17th - First Stream 3 pm CST
+[Join on Discort](https://discord.com/invite/gkCkydB8b6)
+
+[October 17th - Project Planning and Kickoff 3 pm CST](https://youtube.com/live/foeQJsTEico?feature=share)
 October 24th - Second Stream 3pm CST
 
 
