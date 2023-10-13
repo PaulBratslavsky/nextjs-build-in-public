@@ -1,3 +1,9 @@
+note: we will be holding 2 streams as part of this event.  Here are the day. Link coming soon.
+
+October 17th - First Stream 3 pm CST
+October 24th - Second Stream 3pm CST
+
+
 ## App Requirements for the Next.js + Strapi Building in Public
 
 Objective: To build a community-driven application that recommends events to users.
