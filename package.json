@@ -1,0 +1,12 @@
+{
+  "name": "strapi-next-typed",
+  "version": "1.0.0",
+  "description": "Strapi Next Typed Frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copyTypes": "node copyTypes.js"
+  },
+  "author": "Paul Bratslavsky",
+  "license": "MIT"
+}
