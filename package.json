@@ -5,8 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "copyTypes": "node copyTypes.js"
+    "copytypes": "node copyTypes.js",
+    "frontend": "yarn dev --prefix ../frontend/",
+    "backend": "yarn dev --prefix ../backend/",
+    "clear": "cd frontend && rm -rf .next && rm -rf cache",
+    "setup:frontend": "cd frontend && yarn",
+    "setup:backend": "cd backend && yarn",
+    "setup": "yarn install && yarn setup:frontend && yarn setup:backend",
+    "dev": "yarn clear && concurrently \"cd frontend && yarn dev\" \"cd backend && yarn develop\"",
+    "repo:upstream": "git fetch upstream && git merge upstream/main"
   },
   "author": "Paul Bratslavsky",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^8.2.1"
+  }
 }
