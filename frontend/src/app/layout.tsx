@@ -16,7 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className='container mx-auto'>Add Header</header>
+        <main>{children}</main>
+        <footer className='container mx-auto'>Add Footer</footer>
+      </body>
     </html>
   )
 }
