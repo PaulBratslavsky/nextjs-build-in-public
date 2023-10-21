@@ -73,7 +73,7 @@ export default async function Home() {
           </CardContent>
         </Card>
       </div>
-      <div className="EventsList col-span-2">
+        <div className="EventsList col-span-2">
         {events.data.map((event: APIResponseData<"api::event.event">) => {
           const { id, attributes } = event;
           return (
@@ -87,5 +87,5 @@ export default async function Home() {
         </div>
       </div>
     </main>
-  );
+  )
 }
