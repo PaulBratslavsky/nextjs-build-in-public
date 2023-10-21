@@ -9,9 +9,7 @@ import Link from "next/link";
 // Lib
 import fetcher from "@/lib/fetcher";
 import { sectionRenderer } from "@/lib/section-renderer";
-
 import { Card, CardHeader } from "@/components/ui/card";
-import Introduction from "@/components/Hero";
 
 const homePageQuery = qs.stringify({
   populate: {
@@ -22,7 +20,7 @@ const homePageQuery = qs.stringify({
         },
         features: {
           populate: "*",
-        }
+        },
       },
     },
   },
@@ -39,13 +37,12 @@ export default async function Home() {
     (await resHopePage?.json()) as APIResponse<"api::home-page.home-page">;
 
   const sections = homePage.data.attributes.sections;
-
+  if (!sections) return <div>No Sections Found</div>;
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      {sections &&
-        sections.map((section: any, index: number) =>
-          sectionRenderer(section, index)
-        )}
+      {sections.map((section: any, index: number) =>
+        sectionRenderer(section, index)
+      )}
       <div className="EventsList col-span-2">
         {events.data.map((event: APIResponseData<"api::event.event">) => {
           const { id, attributes } = event;
