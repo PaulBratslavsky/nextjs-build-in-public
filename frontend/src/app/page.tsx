@@ -6,6 +6,23 @@ import type {
 import qs from "qs";
 import Link from "next/link";
 
+/**
+ * {
+ * id: num,
+ * attributes: {
+ *  ????
+ *  }
+ * }
+ */
+
+// type Attributes = {
+//   title: string;
+//   slug: string;
+//   created_at: string;
+//   updated_at: string;
+//   published_at: string;
+// };
+
 // Lib
 import fetcher from "@/lib/fetcher";
 import { sectionRenderer } from "@/lib/section-renderer";
@@ -43,6 +60,19 @@ export default async function Home() {
       {sections.map((section: any, index: number) =>
         sectionRenderer(section, index)
       )}
+      <div>
+        <div className="EventsList flex flex-col gap-8">
+          {/* {events.data.map((event) => {
+          const { id, attributes }: { id: string; attributes: Attributes } =
+            event;
+
+            <div className="flex justify-between items-center my-4">
+              <Link href={"/register"}>Register</Link>
+              <Link href={"/signin"}>Sign In</Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
       <div className="EventsList col-span-2">
         {events.data.map((event: APIResponseData<"api::event.event">) => {
           const { id, attributes } = event;
@@ -53,8 +83,9 @@ export default async function Home() {
               </Card>
             </Link>
           );
-        })}
+        })} */}
+        </div>
       </div>
     </main>
-  )
+  );
 }
