@@ -1,14 +1,14 @@
-import Link from "next/link";
 import type { APIResponseCollection, APIResponseData } from "@/types/types";
+import Link from "next/link";
 
 // Lib
 import fetcher from "@/lib/fetcher";
-import { Card, CardHeader } from "@/components/ui/card";
-import Carousel from "@/components/carousel"
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import Introduction from "@/components/Introduction";
 
 export default async function Home() {
+  
   const res = await fetcher("events");
-  // const res = await fetch("http://127.0.0.1:1337/api/events");
 
   if (res === null) return <></>;
 
@@ -16,32 +16,24 @@ export default async function Home() {
 
   console.log("page -- events", events);
 
-  /**
-   * {
-   * id: num,
-   * attributes: {
-   *  ????
-   *  }
-   * }
-   */
-
-  // type Attributes = {
-  //   title: string;
-  //   slug: string;
-  //   created_at: string;
-  //   updated_at: string;
-  //   published_at: string;
-  // };
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        Home Page
-        <Carousel />
+    <main className="flex min-h-screen flex-col items-center justify-between">
+        <Introduction />
 
-      <div className="EventsList flex flex-col gap-8">
-        {/* {events.data.map((event) => {
-          const { id, attributes }: { id: string; attributes: Attributes } =
-            event;
+        <div className="col-span-3">
+        <Card>
+          <CardHeader>
+            <h2 className="text-2xl">Share Your Local Event</h2>
+          </CardHeader>
+          <CardContent>
+            <div>
+              <h2>Turn this in to a hero section</h2>
+              <p>With call to action</p>
+              <div className="flex justify-between items-center my-4">
+                <Link href={"/"}>Create Event</Link>
+                <Link href={"/"}>See All Events</Link>
+              </div>
+            </div>
 
             <div className="flex justify-between items-center my-4">
               <Link href={"/register"}>Register</Link>
@@ -50,7 +42,7 @@ export default async function Home() {
           </CardContent>
         </Card>
       </div>
-      <div className="EventsList col-span-2">
+        <div className="EventsList col-span-2">
         {events.data.map((event: APIResponseData<"api::event.event">) => {
           const { id, attributes } = event;
           return (
@@ -60,9 +52,8 @@ export default async function Home() {
               </Card>
             </Link>
           );
-        })} */}
-
+        })}
       </div>
     </main>
-  );
+  )
 }
