@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_elements_list_texts",
+  "info": {
+    "displayName": "List Text"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    }
+  }
+}

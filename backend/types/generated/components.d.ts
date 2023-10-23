@@ -13,6 +13,16 @@ export interface ElementsLink extends Schema.Component {
   };
 }
 
+export interface ElementsListText extends Schema.Component {
+  collectionName: 'components_elements_list_texts';
+  info: {
+    displayName: 'List Text';
+  };
+  attributes: {
+    text: Attribute.String;
+  };
+}
+
 export interface ElementsLogo extends Schema.Component {
   collectionName: 'components_elements_logos';
   info: {
@@ -21,6 +31,32 @@ export interface ElementsLogo extends Schema.Component {
   };
   attributes: {
     image: Attribute.Media;
+  };
+}
+
+export interface ElementsMetaData extends Schema.Component {
+  collectionName: 'components_elements_meta_data';
+  info: {
+    displayName: 'Meta Data';
+  };
+  attributes: {
+    metaTitle: Attribute.String;
+    metaDescription: Attribute.Text;
+    metaImage: Attribute.Media;
+  };
+}
+
+export interface LayoutHero extends Schema.Component {
+  collectionName: 'components_layout_heroes';
+  info: {
+    displayName: 'Hero';
+  };
+  attributes: {
+    heading: Attribute.String;
+    subHeading: Attribute.String;
+    text: Attribute.Text;
+    images: Attribute.Media;
+    features: Attribute.Component<'elements.list-text', true>;
   };
 }
 
@@ -41,7 +77,10 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'elements.link': ElementsLink;
+      'elements.list-text': ElementsListText;
       'elements.logo': ElementsLogo;
+      'elements.meta-data': ElementsMetaData;
+      'layout.hero': LayoutHero;
       'layout.navigation': LayoutNavigation;
     }
   }
