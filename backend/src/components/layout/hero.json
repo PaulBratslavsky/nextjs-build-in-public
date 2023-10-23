@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_layout_heroes",
+  "info": {
+    "displayName": "Hero"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "subHeading": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "images": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.list-text"
+    }
+  }
+}

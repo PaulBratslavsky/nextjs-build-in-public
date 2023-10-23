@@ -32,7 +32,7 @@ export default async function RootLayout({
   if (res === null) return <></>;
 
   const global = await res.json() as APIResponseData<"api::global.global">;
-  console.dir(global, { depth: null });
+  // console.dir(global, { depth: null });
 
   return (
     <html lang="en">

@@ -1,48 +1,52 @@
-import type { APIResponseCollection, APIResponseData } from "@/types/types";
+import type {
+  APIResponseCollection,
+  APIResponseData,
+  APIResponse,
+} from "@/types/types";
+import qs from "qs";
 import Link from "next/link";
 
 // Lib
 import fetcher from "@/lib/fetcher";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import Introduction from "@/components/Introduction";
+import { sectionRenderer } from "@/lib/section-renderer";
+
+import { Card, CardHeader } from "@/components/ui/card";
+import Introduction from "@/components/Hero";
+
+const homePageQuery = qs.stringify({
+  populate: {
+    sections: {
+      populate: {
+        images: {
+          populate: "*",
+        },
+        features: {
+          populate: "*",
+        }
+      },
+    },
+  },
+});
 
 export default async function Home() {
-  
-  const res = await fetcher("events");
+  const resEvents = await fetcher("events");
+  const resHopePage = await fetcher("home-page", homePageQuery);
 
-  if (res === null) return <></>;
+  const events =
+    (await resEvents?.json()) as APIResponseCollection<"api::event.event">;
 
-  const events = await res.json() as APIResponseCollection<"api::event.event">;
+  const homePage =
+    (await resHopePage?.json()) as APIResponse<"api::home-page.home-page">;
 
-  console.log("page -- events", events);
+  const sections = homePage.data.attributes.sections;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-        <Introduction />
-
-        <div className="col-span-3">
-        <Card>
-          <CardHeader>
-            <h2 className="text-2xl">Share Your Local Event</h2>
-          </CardHeader>
-          <CardContent>
-            <div>
-              <h2>Turn this in to a hero section</h2>
-              <p>With call to action</p>
-              <div className="flex justify-between items-center my-4">
-                <Link href={"/"}>Create Event</Link>
-                <Link href={"/"}>See All Events</Link>
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center my-4">
-              <Link href={"/register"}>Register</Link>
-              <Link href={"/signin"}>Sign In</Link>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-        <div className="EventsList col-span-2">
+      {sections &&
+        sections.map((section: any, index: number) =>
+          sectionRenderer(section, index)
+        )}
+      <div className="EventsList col-span-2">
         {events.data.map((event: APIResponseData<"api::event.event">) => {
           const { id, attributes } = event;
           return (
@@ -55,5 +59,5 @@ export default async function Home() {
         })}
       </div>
     </main>
-  )
+  );
 }
