@@ -1,0 +1,53 @@
+html {
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+.scroll {
+  position: relative;
+  display: flex-column;
+  margin-top: 20px;
+  gap: 16px;
+  width: 700px;
+  overflow: hidden;
+
+  /* background: gray; */
+  color: white;
+  -webkit-mask-image: linear-gradient(90deg,transparent,#fff 20%,#fff 80%,transparent)
+}
+
+.scroll div {
+  white-space: nowrap;
+  margin: 10px;
+  /* animation: animate var(--t) linear infinite; */
+}
+.scroll div:nth-child(2) {
+  white-space: nowrap;
+  /* animation: animate var(--t) linear infinite; */
+}
+
+@keyframes animate {
+  0% { transform: translateX(100%)}
+  100% { transform: translateX(-100%)}
+}
+@keyframes animate2 {
+  0% { transform: translateX(0)}
+  100% { transform: translateX(-100%)}
+}
+
+.scroll div span {
+  display: inlilne-flex;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;  
+  margin: 10px;
+  padding: 10px;
+  background: #333;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: .3s;
+}
+.scroll div span:hover {
+  background: #ce1f3a;
+  cursor: pointer;
+}
