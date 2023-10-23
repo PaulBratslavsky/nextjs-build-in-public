@@ -1,5 +1,4 @@
-import { buttonVariants, Button } from "@/components/ui/button";
-import type { APIResponse } from "@/types/types";
+import { buttonVariants } from "@/components/ui/button";
 import { getStrapiMedia } from "@/lib/api-helpers";
 import Link from "next/link";
 
@@ -49,10 +48,11 @@ const Header = ({ data }: { data: HeaderProps }) => {
 
   function renderNavItems(navItems: HeroNavItem[]) {
     return navItems.map((navItem: HeroNavItem) => {
-      const { text, href, isButton } = navItem;
+      const { id, text, href, isButton } = navItem;
       if (isButton) {
         return (
           <Link
+            key={id}
             href={href}
             className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 px-4 py-2 bg-[#ce1f3a] hover:bg-[#e96a7e]"
           >
@@ -61,7 +61,9 @@ const Header = ({ data }: { data: HeaderProps }) => {
         );
       } else {
         return (
-          <Link href={href} className={buttonVariants({ variant: "ghost" })}>
+          <Link 
+            key={id}
+            href={href} className={buttonVariants({ variant: "ghost" })}>
             {text}
           </Link>
         );
