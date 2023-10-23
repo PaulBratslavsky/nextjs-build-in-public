@@ -25,6 +25,6 @@ fs.writeFile(destinationPath, modifiedContent, (err) => {
         console.error(`Error writing to destination file: ${err}`);
         process.exit(1);
     } else {
-        console.log('File copied and modified successfully!');
+        console.log('Strapi Types copied and modified successfully!');
     }
 });

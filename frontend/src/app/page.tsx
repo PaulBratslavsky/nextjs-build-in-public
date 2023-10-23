@@ -12,7 +12,7 @@ export default async function Home() {
 
   if (res === null) return <></>;
 
-  const events = await res.json();
+  const events = await res.json() as APIResponseCollection<"api::event.event">;
 
   console.log("page -- events", events);
 
