@@ -4,7 +4,7 @@ note: we will be holding 2 streams as part of this event. Here are the day. Link
 
 [October 17th - Project Planning and Kickoff 3 pm CST](https://youtube.com/live/foeQJsTEico?feature=share)
 
-October 24th - Second Stream 3pm CST
+[October 24th - Second Stream 3pm CST](https://youtube.com/live/FtEhNkon72Q?feature=share)
 
 # Setting Up Your Project
 
