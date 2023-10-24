@@ -21,3 +21,11 @@ export function formatDate(dateString: string) {
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   return date.toLocaleDateString('en-US', options);
 }
+export function formatTime(timeString: string) {
+  let tempTime = timeString.split(":");
+  let dt = new Date();
+  dt.setHours(Number(tempTime[0]));
+  dt.setMinutes(Number(tempTime[1]));
+  const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric' };
+  return dt.toLocaleTimeString('en-US', options);
+}
