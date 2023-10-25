@@ -19,28 +19,26 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import registerAction from "../../actions/register-action";
+import loginAction from "@/actions/login-action";
 
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  email: z.string().email(),
+  identifier: z.string().min(2).max(50),
   password: z.string().min(8).max(100),
 });
 
-const RegisterForm = () => {
+const SigninForm = () => {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      email: "",
+      identifier: "",
       password: "",
     },
   });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const result = (await registerAction(values)) as StrapiAuthActionResponse;
+    const result = (await loginAction(values)) as StrapiAuthActionResponse;
     if (result.ok) {
       renderMessage("Logged in successfully", "success");
       router.push("/dashboard");
@@ -52,10 +50,10 @@ const RegisterForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-8">
         <FormField
           control={form.control}
-          name="username"
+          name="identifier"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Email/Username</FormLabel>
               <FormControl>
                 <Input placeholder="Eventlerite" {...field} />
               </FormControl>
@@ -66,20 +64,7 @@ const RegisterForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="eventlerite@acme.com" {...field} />
-              </FormControl>
-              <FormDescription>This is your email.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+
         <FormField
           control={form.control}
           name="password"
@@ -100,8 +85,8 @@ const RegisterForm = () => {
           Submit
         </Button>
         <FormDescription>
-          <Link href="/signin" className="hover:text-slate-600">
-            Have an account? Sign in here.
+          <Link href="/register" className="hover:text-slate-600">
+            Don't have an account? Register here.
           </Link>
         </FormDescription>
       </form>
@@ -109,4 +94,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default SigninForm;

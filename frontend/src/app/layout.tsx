@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import type { APIResponseData } from "@/types/types";
+import { Toaster } from "react-hot-toast";
 import qs from "qs";
 import fetcher from "@/lib/fetcher";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import Header from '@/components/Header'
+import Header from "@/components/Header";
 
 const query = qs.stringify({
   populate: {
@@ -32,13 +33,14 @@ export default async function RootLayout({
   //TODO: HANDLE ERROR
   if (res === null) return <></>;
 
-  const global = await res.json() as APIResponseData<"api::global.global">;
+  const global = (await res.json()) as APIResponseData<"api::global.global">;
   // console.dir(global, { depth: null });
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header data={global}/>
+        <Toaster />
+        <Header data={global} />
         {children}
       </body>
     </html>
