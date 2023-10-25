@@ -6,6 +6,12 @@ note: we will be holding 2 streams as part of this event. Here are the day. Link
 
 [October 24th - Second Stream 3pm CST](https://youtube.com/live/FtEhNkon72Q?feature=share)
 
+# We are making Progress
+
+Thank you to [Anton](https://github.com/ztxone) and [Silas](https://github.com/silaspath) and let's and you here too.
+
+![update](https://github.com/PaulBratslavsky/nextjs-build-in-public/assets/6153188/952cda46-5638-432f-9255-a1664bec125a)
+
 # Setting Up Your Project
 
 1. Fork the repository locally:
