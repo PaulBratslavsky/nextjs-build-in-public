@@ -3,12 +3,15 @@
 import { useAppContext } from "@/context/AppContext";
 import { Button } from "@/components/ui/button";
 import logoutAction from "@/actions/logout-action";
+import { useRouter } from "next/navigation";
 
 export default function LogoutButton() {
   const { setUser } = useAppContext();
+  const router = useRouter();
   async function handleLogout() {
     const response = await logoutAction();
     response.ok && setUser(null);
+    router.push("/");
   }
 
   return (
