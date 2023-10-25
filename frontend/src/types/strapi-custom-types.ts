@@ -39,3 +39,39 @@ export interface StrapiAuthActionResponse {
   error?: StrapiAuthError | null;
   data?: object | null;
 }
+
+export interface StrapiEventDataCollection {
+  data: StrapiEventData[];
+  meta: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
+}
+
+export interface StrapiEventData {
+  id: number;
+  attributes: {
+    title: string;
+    slug: string;
+    description: string;
+    location: string;
+    date: string;
+    time: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    image: Image;
+  };
+}
+
+export interface Image {
+  data: {
+    id: number;
+    attributes: {
+      url: string;
+      alternativeText: null;
+    };
+  };
+}
