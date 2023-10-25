@@ -1,6 +1,6 @@
 import { getStrapiMedia } from "@/lib/api-helpers";
 import { CheckCircle } from "lucide-react";
-
+import Image from 'next/image'
 interface HeroFeature {
   id: string;
   text: string;
@@ -27,7 +27,6 @@ interface HeroProps {
   };
 }
 
-// TODO: REFACTOR TO USE NEXT IMAGE
 const Hero = ({ data }: { data: HeroProps }) => {
   const { heading, subHeading, text, features, images } = data;
   return (
@@ -41,10 +40,12 @@ const Hero = ({ data }: { data: HeroProps }) => {
                 if (!imageUrl) return null;
                 return (
                   <figure className="col-span-1" key={image.id}>
-                    <img
+                    <Image
                       className="rounded-3xl w-full h-auto"
                       src={imageUrl}
-                      alt=""
+                      alt={image.attributes.alternativeText}
+                      width={100}
+                      height={100}
                     />
                   </figure>
                 );

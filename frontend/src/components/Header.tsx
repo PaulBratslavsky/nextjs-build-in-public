@@ -40,8 +40,6 @@ interface HeaderProps {
 }
 
 const Header = ({ data }: { data: HeaderProps }) => {
-  console.dir(data.data, { depth: null });
-
   const imageUrl = getStrapiMedia(
     data.data.attributes.logo.image.data.attributes.url
   );
