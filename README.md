@@ -4,7 +4,15 @@ note: we will be holding 2 streams as part of this event. Here are the day. Link
 
 [October 17th - Project Planning and Kickoff 3 pm CST](https://youtube.com/live/foeQJsTEico?feature=share)
 
-October 24th - Second Stream 3pm CST
+[October 24th - Second Stream 3pm CST](https://youtube.com/live/FtEhNkon72Q?feature=share)
+
+Stay tune for next stream announcment
+
+# We are making Progress
+
+Thank you to [Anton](https://github.com/ztxone) and [Silas](https://github.com/silaspath) and let's add you here too.
+
+![update](https://github.com/PaulBratslavsky/nextjs-build-in-public/assets/6153188/952cda46-5638-432f-9255-a1664bec125a)
 
 # Setting Up Your Project
 
