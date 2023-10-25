@@ -21,7 +21,7 @@ const registerAction = async (data: StrapiRegister) => {
     const data = (await response.json()) as StrapiAuthResponse;
     if (response.ok && data.jwt) {
       cookies().set("jwt", data.jwt);
-      return { ok: true };
+      return { data: data.user, ok: true };
     } else return { error: data.error, ok: false };
   } catch (error) {
     console.log(error);

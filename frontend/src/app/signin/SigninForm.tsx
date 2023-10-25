@@ -4,8 +4,10 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { StrapiAuthActionResponse } from "@/types/strapi-custom-types";
+
 import { useRouter } from "next/navigation";
 import { renderMessage } from "@/lib/render-message";
+import { useAppContext } from "@/context/AppContext";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -28,6 +30,7 @@ const formSchema = z.object({
 
 const SigninForm = () => {
   const router = useRouter();
+  const { setUser } = useAppContext();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,6 +43,7 @@ const SigninForm = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const result = (await loginAction(values)) as StrapiAuthActionResponse;
     if (result.ok) {
+      setUser(result.data);
       renderMessage("Logged in successfully", "success");
       router.push("/dashboard");
     } else result.error && renderMessage(result.error.message, "error");
@@ -48,6 +52,14 @@ const SigninForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-8">
+      <div className="flex flex-col space-y-2 text-center">
+              <h1 className="text-2xl font-semibold tracking-tight">
+                Sign in to your account
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                And start creating events
+              </p>
+            </div>
         <FormField
           control={form.control}
           name="identifier"
