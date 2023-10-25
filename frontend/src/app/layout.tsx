@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import type { APIResponseData } from "@/types/types";
+import { AppProvider } from "@/context/AppContext";
+
 import { Toaster } from "react-hot-toast";
 import qs from "qs";
 import fetcher from "@/lib/fetcher";
@@ -38,9 +40,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <AppProvider authUser={null}>
         <Toaster />
         <Header data={global} />
         {children}
+        </AppProvider>
       </body>
     </html>
   );

@@ -37,7 +37,7 @@ export interface StrapiAuthResponse {
 export interface StrapiAuthActionResponse {
   ok: boolean;
   error?: StrapiAuthError | null;
-  data?: object | null;
+  data?: StrapiAuthResponse | null;
 }
 
 export interface StrapiEventDataCollection {

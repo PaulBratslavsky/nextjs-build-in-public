@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { StrapiAuthActionResponse } from "@/types/strapi-custom-types";
 import { useRouter } from "next/navigation";
 import { renderMessage } from "@/lib/render-message";
+import { useAppContext } from "@/context/AppContext";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,8 @@ const formSchema = z.object({
 
 const RegisterForm = () => {
   const router = useRouter();
+  const { setUser } = useAppContext();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,6 +46,7 @@ const RegisterForm = () => {
     const result = (await registerAction(values)) as StrapiAuthActionResponse;
     if (result.ok) {
       renderMessage("Logged in successfully", "success");
+      setUser(result.data)
       router.push("/dashboard");
     } else result.error && renderMessage(result.error.message, "error");
   }
@@ -50,6 +54,14 @@ const RegisterForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-8">
+      <div className="flex flex-col space-y-2 text-center">
+              <h1 className="text-2xl font-semibold tracking-tight">
+                Create an account
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Enter your information below to create your account
+              </p>
+            </div>
         <FormField
           control={form.control}
           name="username"
