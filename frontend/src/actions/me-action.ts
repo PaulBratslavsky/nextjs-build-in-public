@@ -14,6 +14,7 @@ const meAction = async () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
+      cache: "no-cache",
     });
     const data = (await response.json()) as StrapiAuthResponse;
     return { ok: true, data: data };

@@ -5,19 +5,18 @@ import type {
 } from "@/types/strapi-custom-types";
 import { cookies } from "next/headers";
 
-const loginAction = async (data: StrapiLogin) => {
+const loginAction = async (formData: StrapiLogin) => {
   const url = `${process.env.STRAPI_URL}/api/auth/local`;
 
-  const body = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  };
-
   try {
-    const response: any = await fetch(url, body);
+    const response: any = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+      cache: "no-cache",
+    });
     const data = (await response.json()) as StrapiAuthResponse;
     if (response.ok && data.jwt) {
       cookies().set("jwt", data.jwt);
