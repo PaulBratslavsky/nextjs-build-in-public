@@ -1,6 +1,17 @@
-import React from "react";
-
+import { Separator } from "@/components/ui/separator";
+import { AddEventForm } from "./AddEventForm";
 
 export default function AddEventRoute() {
-  return <div className="container mx-auto px-8 flex items-center h-screen justify-center">Add Event Route</div>;
+  return (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-medium">Add Event</h3>
+        <p className="text-sm text-muted-foreground">
+          Add a new upcoming event.
+        </p>
+      </div>
+      <Separator />
+      <AddEventForm />
+    </div>
+  );
 }

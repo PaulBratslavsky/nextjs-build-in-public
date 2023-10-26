@@ -1,8 +1,9 @@
 "use client";
-
+import { useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
+import { ImageField } from "../../../components/ImageField";
 import * as z from "zod";
 
 import { cn } from "@/lib/utils";
@@ -62,6 +63,9 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 export function ProfileForm() {
+  const [file, setFile] = useState<File>();
+  const [previewImage, setPreviewImage] = useState<string | null>(null); // Step 1
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -73,11 +77,50 @@ export function ProfileForm() {
     control: form.control,
   });
 
-  function onSubmit(data: ProfileFormValues) {}
+  function onSubmit(data: ProfileFormValues) {
+    const formData = new FormData();
+  
+    // Append each form data
+    for (const [key, value] of Object.entries(data)) {
+      formData.append(key, value);
+    }
+  
+    // Append the file
+    if (file) {
+      formData.append('file', file); // 'file' here is the field name for the file, you can name it as per your backend's requirements
+    }
+  
+    // Assuming you would be making an HTTP request, this would be an example using the fetch API:
+    /*
+    fetch("/your-api-endpoint", {
+      method: "POST",
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(result => {
+        console.log("Success:", result);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+    */
+  
+    // For now, just to check our FormData:
+    for (let pair of formData.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]);
+    }
+  }
+  
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <ImageField
+          file={file}
+          onFileChange={setFile}
+          previewImage={previewImage}
+          onPreviewImageChange={setPreviewImage}
+        />
         <FormField
           control={form.control}
           name="username"
@@ -174,6 +217,7 @@ export function ProfileForm() {
             Add URL
           </Button>
         </div>
+
         <Button type="submit">Update profile</Button>
       </form>
     </Form>
