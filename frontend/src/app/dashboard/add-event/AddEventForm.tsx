@@ -1,12 +1,17 @@
 "use client";
+import "react-time-picker/dist/TimePicker.css";
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css";
+
 import { useState } from "react";
-import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { ImageField } from "../../../components/ImageField";
+import TimePicker from "react-time-picker";
+import DatePicker from "react-date-picker";
 import * as z from "zod";
 
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -18,13 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
 const eventFormSchema = z.object({
@@ -36,7 +34,8 @@ const eventFormSchema = z.object({
     .max(144, {
       message: "Location must not be longer than 144 characters.",
     }),
-
+  time: z.string(),
+  date: z.date(),
   description: z.string().max(160).min(4),
 });
 
@@ -45,6 +44,8 @@ type EventFormValues = z.infer<typeof eventFormSchema>;
 // This can come from your database or API.
 const defaultValues: Partial<EventFormValues> = {
   description: "Tell us about your awesome event.",
+  time: "10:00",
+  date: new Date(),
 };
 
 export function AddEventForm() {
@@ -110,6 +111,43 @@ export function AddEventForm() {
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>Location of the event.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="time"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Time</FormLabel>
+              <FormControl>
+                <TimePicker
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  {...field}
+                  disableClock
+                />
+              </FormControl>
+              <FormDescription>Time of the event.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="date"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Date</FormLabel>
+              <FormControl>
+                <DatePicker
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>Date of the event.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

@@ -20,6 +20,8 @@
   "author": "Paul Bratslavsky",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^8.2.1"
+    "concurrently": "^8.2.1",
+    "react-date-picker": "^10.5.2",
+    "react-time-picker": "^6.5.2"
   }
 }

@@ -74,3 +74,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* 
+  Datde and Time Picker 
+*/
+
+div.react-time-picker__wrapper,
+div.react-date-picker__wrapper {
+  border: none !important;
+}
