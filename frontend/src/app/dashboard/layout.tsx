@@ -11,24 +11,16 @@ export const metadata: Metadata = {
 
 const sidebarNavItems = [
   {
+    title: "Dashboard",
+    href: "/dashboard",
+  },
+  {
+    title: "My Events",
+    href: "/dashboard/events",
+  },
+  {
     title: "Profile",
-    href: "/examples/forms",
-  },
-  {
-    title: "Account",
-    href: "/examples/forms/account",
-  },
-  {
-    title: "Appearance",
-    href: "/examples/forms/appearance",
-  },
-  {
-    title: "Notifications",
-    href: "/examples/forms/notifications",
-  },
-  {
-    title: "Display",
-    href: "/examples/forms/display",
+    href: "/dashboard/profile",
   },
 ];
 
