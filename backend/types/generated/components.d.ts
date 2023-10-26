@@ -46,6 +46,17 @@ export interface ElementsMetaData extends Schema.Component {
   };
 }
 
+export interface ElementsSocial extends Schema.Component {
+  collectionName: 'components_elements_socials';
+  info: {
+    displayName: 'Social';
+  };
+  attributes: {
+    link: Attribute.String;
+    type: Attribute.Enumeration<['LINKEDIN', 'GITHUB', 'TWITTER', 'YOUTUBE']>;
+  };
+}
+
 export interface LayoutHero extends Schema.Component {
   collectionName: 'components_layout_heroes';
   info: {
@@ -80,6 +91,7 @@ declare module '@strapi/types' {
       'elements.list-text': ElementsListText;
       'elements.logo': ElementsLogo;
       'elements.meta-data': ElementsMetaData;
+      'elements.social': ElementsSocial;
       'layout.hero': LayoutHero;
       'layout.navigation': LayoutNavigation;
     }
