@@ -1,17 +1,17 @@
 import { Separator } from "@/components/ui/separator";
-import { AddEventForm } from "./AddEventForm";
+import { ProfileForm } from "./ProfileForm";
 
-export default function AddEventRoute() {
+export default function ProfileRoute() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Add Event</h3>
+        <h3 className="text-lg font-medium">Profile</h3>
         <p className="text-sm text-muted-foreground">
-          Add a new upcoming event.
+          This is how others will see you on the site.
         </p>
       </div>
       <Separator />
-      <AddEventForm />
+      <ProfileForm />
     </div>
   );
 }
