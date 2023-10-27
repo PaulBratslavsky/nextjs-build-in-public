@@ -46,11 +46,11 @@ export default async function Home() {
   if (!sections) return <div>No Sections Found</div>;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="container flex min-h-screen flex-col items-center justify-between">
       {sections.map((section: any, index: number) =>
         sectionRenderer(section, index)
       )}
-      <div className="px-6 max-w-6xl my-10">
+      <div className="my-10">
         {events.data.map((data: StrapiEventData) => (
           <EventCard key={data.id} {...data} />
         ))}

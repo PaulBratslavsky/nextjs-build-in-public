@@ -93,11 +93,11 @@ const SigninForm = () => {
             </FormItem>
           )}
         />
-        <Button className="bg-[#ce1f3a] hover:bg-[#e96a7e]" type="submit">
+        <Button className="bg-primary hover:bg-accent" type="submit">
           Submit
         </Button>
         <FormDescription>
-          <Link href="/register" className="hover:text-slate-600">
+          <Link href="/register" className="hover:text-accent">
             Don't have an account? Register here.
           </Link>
         </FormDescription>
