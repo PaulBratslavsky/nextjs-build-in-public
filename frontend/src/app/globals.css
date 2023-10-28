@@ -3,6 +3,13 @@
 @tailwind utilities;
  
 @layer base {
+  /*
+    primary color #ce1f3a 
+    secondary color  #ef97a4
+    accent color #e96a7e
+    destructive color #e23e57
+    gray color #e6e6e6    
+  */
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -13,26 +20,26 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
  
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 351 74% 46%;
     --primary-foreground: 210 40% 98%;
  
-    --secondary: 210 40% 96.1%;
+    --secondary: 351 73% 76%;
     --secondary-foreground: 222.2 47.4% 11.2%;
  
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
  
-    --accent: 210 40% 96.1%;
+    --accent: 351 74% 66%;
     --accent-foreground: 222.2 47.4% 11.2%;
  
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 351 74% 56%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
  
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
  
   .dark {
