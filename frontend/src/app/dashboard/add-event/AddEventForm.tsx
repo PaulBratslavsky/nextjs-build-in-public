@@ -9,6 +9,10 @@ import { useForm } from "react-hook-form";
 import { ImageField } from "../../../components/ImageField";
 import TimePicker from "react-time-picker";
 import DatePicker from "react-date-picker";
+
+import uploadImage from "@/actions/upload-image";
+import createEvent from "@/actions/create-event";
+
 import * as z from "zod";
 
 // import { cn } from "@/lib/utils";
@@ -26,6 +30,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 const eventFormSchema = z.object({
+  image: z.any().refine((files) => files?.length == 1, "Image is required."),
+
   location: z
     .string()
     .min(2, {
@@ -34,6 +40,7 @@ const eventFormSchema = z.object({
     .max(144, {
       message: "Location must not be longer than 144 characters.",
     }),
+  title: z.string().min(2).max(75),
   time: z.string(),
   date: z.date(),
   description: z.string().max(160).min(4),
@@ -58,43 +65,30 @@ export function AddEventForm() {
     mode: "onChange",
   });
 
-  function onSubmit(data: EventFormValues) {
-    const formData = new FormData();
+  async function onSubmit(form: any) {
 
-    // Append each form data
-    for (const [key, value] of Object.entries(data)) {
-      formData.append(key, value);
-    }
+    const imageFormData = new FormData();
+    imageFormData.append("image", file!);
 
-    // Append the file
-    if (file) {
-      formData.append("file", file); // 'file' here is the field name for the file, you can name it as per your backend's requirements
-    }
+    const imageResponse = await uploadImage(imageFormData);
+    const imageData = imageResponse.data[0];
+    const imageId = imageData.id;
+    if (!imageId) return { error: "No image ID provided", ok: false };
 
-    // Assuming you would be making an HTTP request, this would be an example using the fetch API:
-    /*
-    fetch("/your-api-endpoint", {
-      method: "POST",
-      body: formData,
-    })
-      .then(response => response.json())
-      .then(result => {
-        console.log("Success:", result);
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
-    */
+    const eventFormData = new FormData();
+    eventFormData.append("location", form.getValues("location"));
+    eventFormData.append("time", form.getValues("time"));
+    eventFormData.append("date", form.getValues("date"));
+    eventFormData.append("description", form.getValues("description"));
 
-    // For now, just to check our FormData:
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+    const response = await createEvent(eventFormData);
+    if (!response.ok) return { error: response.error, ok: false };
+    return { ok: true, data: response.data };
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form action={async () => onSubmit(form)} className="space-y-8">
         <ImageField
           file={file}
           onFileChange={setFile}
@@ -111,6 +105,21 @@ export function AddEventForm() {
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>Location of the event.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+<FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input placeholder="shadcn" {...field} />
+              </FormControl>
+              <FormDescription>Title of the event.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
