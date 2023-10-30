@@ -4,6 +4,7 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const cookie = request.cookies.get('jwt');
+  
   const currentPath = request.nextUrl.pathname;
 
   if (currentPath === '/dashboard' && cookie === undefined) {

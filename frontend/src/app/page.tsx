@@ -1,14 +1,10 @@
 import type { APIResponse } from "@/types/types";
-import type {
-  StrapiEventData,
-  StrapiEventDataCollection,
-} from "@/types/strapi-custom-types";
 import qs from "qs";
 
 // Lib
 import fetcher from "@/lib/fetcher";
 import { sectionRenderer } from "@/lib/section-renderer";
-import EventCard from "@/components/EventCard";
+import EventList from "@/components/EventsList"
 
 const homePageQuery = qs.stringify({
   populate: {
@@ -31,14 +27,17 @@ const eventsQuery = qs.stringify({
       fields: ["url", "alternativeText"],
     },
   },
+  sort: ["date:desc"],
+  pagination: {
+    pageSize: 5,
+    page: 1,
+  },
 });
 
+
+
 export default async function Home() {
-  const resEvents = await fetcher("events", eventsQuery);
   const resHomePage = await fetcher("home-page", homePageQuery);
-
-  const events = (await resEvents?.json()) as StrapiEventDataCollection;
-
   const homePage =
     (await resHomePage?.json()) as APIResponse<"api::home-page.home-page">;
 
@@ -46,15 +45,11 @@ export default async function Home() {
   if (!sections) return <div>No Sections Found</div>;
 
   return (
-    <main className="container flex min-h-screen flex-col items-center justify-between">
+    <div className="container flex min-h-screen flex-col items-center justify-between">
       {sections.map((section: any, index: number) =>
         sectionRenderer(section, index)
       )}
-      <div className="my-10">
-        {events.data.map((data: StrapiEventData) => (
-          <EventCard key={data.id} {...data} />
-        ))}
-      </div>
-    </main>
+      <EventList eventsQuery={eventsQuery}/>
+    </div>
   );
 }

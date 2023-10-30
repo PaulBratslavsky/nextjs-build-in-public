@@ -1,8 +1,19 @@
+import qs from "qs";
+import EventList from "@/components/EventsList";
 
-const EventsPage = () => {
+const eventsQuery = qs.stringify({
+  populate: {
+    image: {
+      fields: ["url", "alternativeText"],
+    },
+  },
+  sort: ["date:desc"],
+});
+
+export default async function EventsPage() {
   return (
-    <div className="container mx-auto py-10 flex items-center h-screen justify-center">EventsPage</div>
-  )
+    <div className="container flex min-h-screen flex-col items-center justify-between">
+      <EventList eventsQuery={eventsQuery} />
+    </div>
+  );
 }
-
-export default EventsPage
