@@ -11,7 +11,7 @@ export default async function EventsList({
   const resEvents = await getPublicEventsAction(eventsQuery);
   const events = resEvents?.data.data as StrapiEventData[];
   return (
-    <div>
+    <div className="px-6 max-w-6xl">
       <Suspense fallback={<div>Loading...</div>}>
         <div className="my-10">
           {events &&
