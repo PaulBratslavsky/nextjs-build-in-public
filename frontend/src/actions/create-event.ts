@@ -2,6 +2,7 @@
 import { cookies } from "next/headers";
 import type { StrapiMEResponse } from "@/types/strapi-custom-types";
 import meAction from "./me-action";
+import { revalidatePath } from "next/cache";
 
 async function createEvent(formData: FormData) {
   const authToken = cookies().get("jwt")?.value;
@@ -29,6 +30,8 @@ async function createEvent(formData: FormData) {
   });
 
   const eventData = await eventResponse.json();
+  revalidatePath("/");
+  revalidatePath("/events");
   return { ok: true, data: eventData };
 }
 

@@ -7,6 +7,7 @@ const eventsQuery = qs.stringify({
       fields: ["url", "alternativeText"],
     },
   },
+  sort: ["date:desc"],
 });
 
 export default async function EventsPage() {

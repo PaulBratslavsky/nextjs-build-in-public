@@ -27,6 +27,11 @@ const eventsQuery = qs.stringify({
       fields: ["url", "alternativeText"],
     },
   },
+  sort: ["date:desc"],
+  pagination: {
+    pageSize: 5,
+    page: 1,
+  },
 });
 
 
