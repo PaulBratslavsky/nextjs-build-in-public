@@ -9,6 +9,9 @@ function returnName(pathname: string) {
   if (pathname === "/dashboard/profile") {
     return "Profile";
   }
+  if (pathname === "/dashboard/add-event") {
+    return "Add Event";
+  }
   return "Dashboard";
 }
 

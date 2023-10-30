@@ -21,6 +21,10 @@ const sidebarNavItems = [
     title: "Profile",
     href: "/dashboard/profile",
   },
+  {
+    title: "Add Event",
+    href: "/dashboard/add-event",
+  },
 ];
 
 interface DashboardLayoutProps {
