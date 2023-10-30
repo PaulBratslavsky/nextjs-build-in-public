@@ -34,6 +34,13 @@ export interface StrapiAuthResponse {
   user: StrapiUser;
 }
 
+export interface StrapiMEResponse {
+  ok?: boolean;
+  data?: {
+    id: string;
+  }
+}
+
 export interface StrapiAuthActionResponse {
   ok: boolean;
   error?: StrapiAuthError | null;

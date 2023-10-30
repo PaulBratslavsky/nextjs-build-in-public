@@ -8,6 +8,7 @@ interface ImageFieldProps {
   previewImage: string | null;
   onPreviewImageChange: (image: string | null) => void;
   existingPreviewUrl?: string;
+  rest?: any;
 }
 
 export function ImageField({
@@ -15,7 +16,8 @@ export function ImageField({
   onFileChange,
   previewImage,
   onPreviewImageChange,
-  existingPreviewUrl
+  existingPreviewUrl,
+  ...rest
 }: ImageFieldProps) {
   
   const FILE_SIZE_LIMIT = 2 * 1024 * 1024; // 2MB
@@ -57,7 +59,7 @@ export function ImageField({
 
   return (
     <React.Fragment>
-      <Input type="file" name="file" onChange={handleImageChange} />
+      <Input type="file"  onChange={handleImageChange} { ...rest }/>
       {displayedPreview && (
         <div className="mt-4">
           <img
