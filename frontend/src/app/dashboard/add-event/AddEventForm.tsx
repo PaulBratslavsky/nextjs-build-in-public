@@ -2,20 +2,17 @@
 import "react-time-picker/dist/TimePicker.css";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
-
+import slugify from "slugify";
+import { format, parse } from "date-fns";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { ImageField } from "../../../components/ImageField";
 import TimePicker from "react-time-picker";
 import DatePicker from "react-date-picker";
-
-import uploadImage from "@/actions/upload-image";
 import createEvent from "@/actions/create-event";
-
+import { renderMessage } from "@/lib/render-message";
 import * as z from "zod";
-
-// import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,11 +23,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+type EventFormValues = z.infer<typeof eventFormSchema>;
+
 const eventFormSchema = z.object({
-  image: z.any().refine((files) => files?.length == 1, "Image is required."),
+  image: z.any().refine((file) => {
+    console.log(file, "from validation");
+    return file !== undefined;
+  }, "Image is required."),
 
   location: z
     .string()
@@ -46,16 +49,17 @@ const eventFormSchema = z.object({
   description: z.string().max(160).min(4),
 });
 
-type EventFormValues = z.infer<typeof eventFormSchema>;
-
 // This can come from your database or API.
 const defaultValues: Partial<EventFormValues> = {
+  title: "My Awesome Event",
+  location: "My Awesome Location",
   description: "Tell us about your awesome event.",
   time: "10:00",
   date: new Date(),
 };
 
 export function AddEventForm() {
+  const router = useRouter();
   const [file, setFile] = useState<File>();
   const [previewImage, setPreviewImage] = useState<string | null>(null); // Step 1
 
@@ -65,35 +69,72 @@ export function AddEventForm() {
     mode: "onChange",
   });
 
-  async function onSubmit(form: any) {
+  async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+    const formData = new FormData();
+    formData.set("image", values.image);
 
-    const imageFormData = new FormData();
-    imageFormData.append("image", file!);
+    renderMessage("Starting image upload.", "success");
+    const imageResponse = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-    const imageResponse = await uploadImage(imageFormData);
-    const imageData = imageResponse.data[0];
-    const imageId = imageData.id;
-    if (!imageId) return { error: "No image ID provided", ok: false };
+    if (!imageResponse.ok) renderMessage("Error uploading image.", "error");
+    const imageData = await imageResponse.json();
+    const imageId = imageData.data.id;
+    if (!imageId) renderMessage("Error uploading image.", "error");
+
+    const date = form.getValues("date");
+    const parsedTime = parse(values.time, "HH:mm", new Date());
+    const time = format(parsedTime, "HH:mm:ss.SSS");
 
     const eventFormData = new FormData();
-    eventFormData.append("location", form.getValues("location"));
-    eventFormData.append("time", form.getValues("time"));
-    eventFormData.append("date", form.getValues("date"));
-    eventFormData.append("description", form.getValues("description"));
+    eventFormData.append(
+      "data",
+      JSON.stringify({
+        title: values.title,
+        slug: slugify(values.title, { lower: true }),
+        time,
+        date,
+        location: values.location,
+        description: values.description,
+        image: imageId,
+      })
+    );
 
+    renderMessage("Creating your awesome event.", "success");
     const response = await createEvent(eventFormData);
-    if (!response.ok) return { error: response.error, ok: false };
-    return { ok: true, data: response.data };
+    if (!response.ok) renderMessage("Error creating event.", "error");
+    else {
+      renderMessage("Event created successfully.", "success");
+      router.push("/dashboard/events");
+    }
   }
 
   return (
     <Form {...form}>
-      <form action={async () => onSubmit(form)} className="space-y-8">
-        <ImageField
-          file={file}
-          onFileChange={setFile}
-          previewImage={previewImage}
-          onPreviewImageChange={setPreviewImage}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Image</FormLabel>
+              <FormControl>
+                <ImageField
+                  file={file}
+                  onFileChange={(selected) => {
+                    setFile(selected);
+                    field.onChange(selected);
+                  }}
+                  previewImage={previewImage}
+                  onPreviewImageChange={setPreviewImage}
+                />
+              </FormControl>
+              <FormDescription>Location of the event.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <FormField
           control={form.control}
@@ -110,7 +151,7 @@ export function AddEventForm() {
           )}
         />
 
-<FormField
+        <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
