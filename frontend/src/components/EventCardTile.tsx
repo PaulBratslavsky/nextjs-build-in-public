@@ -3,7 +3,6 @@ import type { StrapiEventData } from "@/types/strapi-custom-types";
 import { formatDate, formatTime, getStrapiMedia } from "@/lib/api-helpers";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function EventCard(data: StrapiEventData) {
