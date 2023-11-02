@@ -1,6 +1,6 @@
 
 import qs from "qs";
-import EventList from "@/components/EventsList";
+import EventListAuth from "@/components/EventListAuth"
 
 const eventsQuery = qs.stringify({
   populate: {
@@ -16,7 +16,7 @@ export default function MyEventsRoute() {
   return (
     <div className="space-y-6">
       <PageHeading heading="My Event" subheading="Manage your events." />
-      <EventList eventsQuery={eventsQuery} />
+      <EventListAuth eventsQuery={eventsQuery} />
     </div>
   );
 }
