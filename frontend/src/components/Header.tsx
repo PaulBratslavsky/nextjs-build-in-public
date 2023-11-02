@@ -85,8 +85,8 @@ const Header = ({ data }: { data: HeaderProps }) => {
   console.log(user);
 
   return (
-    <header className="bg-background/70 sticky top-0 z-20 border-b backdrop-blur">
-      <div className="container flex h-16 px-8 items-center justify-between">
+    <header className="bg-white sticky top-0 z-20 border-b backdrop-blur">
+      <div className="flex h-16 px-8 items-center justify-between">
         <div className="flex items-center">
           {imageUrl && (
             <img src={imageUrl} alt="Eventler logo" className="h-12" />

@@ -15,7 +15,7 @@ export default function LogoutButton() {
   }
 
   return (
-    <Button onClick={() => handleLogout()} variant="secondary">
+    <Button onClick={() => handleLogout()} variant="ghost" className="hover:bg-muted">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

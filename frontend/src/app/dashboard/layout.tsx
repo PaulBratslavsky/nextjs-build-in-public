@@ -52,13 +52,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           className="hidden dark:block"
         />
       </div>
-      <div className="hidden space-y-6 p-10 pb-16 md:block">
-        <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-          <aside className="-mx-4 lg:w-1/5">
+      <div className="md:block bg-gray-50 max-h-screen">
+        <div className="flex flex-col lg:flex-row">
+          <aside className="lg:w-1/4 p-6 bg-muted/70 h-auto lg:min-h-screen">
             <DashboardHeader />
             <SidebarNav items={sidebarNavItems} />
           </aside>
-          <div className="flex-1 lg:max-w-2xl">{children}</div>
+          <div className="flex-1 w-full p-6 h-[calc(100vh-64px)] overflow-auto">{children}</div>
         </div>
       </div>
     </>

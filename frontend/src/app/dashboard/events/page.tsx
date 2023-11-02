@@ -1,6 +1,25 @@
-import React from 'react'
+
+import qs from "qs";
+import EventList from "@/components/EventsList";
+
+const eventsQuery = qs.stringify({
+  populate: {
+    image: {
+      fields: ["url", "alternativeText"],
+    },
+  },
+  sort: ["date:desc"],
+});
+import PageHeading from "@/components/PageHeading";
 
 export default function MyEventsRoute() {
-  return <div className="container mx-auto px-8 flex items-center h-screen justify-center">My Events</div>;
-
+  return (
+    <div className="space-y-6">
+      <PageHeading heading="My Event" subheading="Manage your events." />
+      <EventList eventsQuery={eventsQuery} />
+    </div>
+  );
 }
+
+
+
