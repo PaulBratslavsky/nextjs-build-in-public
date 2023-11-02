@@ -30,7 +30,7 @@ export default async function EventsPage() {
         </div>
       </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
-        <div className="mt-10 text-xl rounded-3xl bg-gradient-to-br from-secondary via-accent to-secondary text-primary-foreground px-6 py-4 w-fit mx-auto shadow">Next month awesome events</div>
+        <div className="mt-10 text-xl rounded-3xl bg-gradient-to-br from-secondary via-accent to-secondary text-primary-foreground px-6 py-4 w-fit mx-auto shadow">All Events</div>
         <div className="my-10">
           {events &&
             events.map((data: StrapiEventData) => (
