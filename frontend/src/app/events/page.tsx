@@ -20,7 +20,7 @@ export default async function EventsPage() {
   return (
     <div className="container flex min-h-screen flex-col items-center justify-between">
       <div>
-      <div className="mt-10 text-xl rounded-3xl bg-gradient-to-br from-secondary via-accent to-secondary text-primary-foreground px-6 py-4 w-fit mx-auto shadow">This month great events</div>
+      <div className="mt-10 text-xl rounded-3xl bg-gradient-to-br from-secondary via-accent to-secondary text-primary-foreground px-6 py-4 w-fit mx-auto shadow">Upcoming events</div>
       <Suspense fallback={<div>Loading...</div>}>
         <div className="my-10 grid md:grid-cols-2 gap-8">
           {events &&
