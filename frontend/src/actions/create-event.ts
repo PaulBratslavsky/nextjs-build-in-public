@@ -32,6 +32,7 @@ async function createEvent(formData: FormData) {
   const eventData = await eventResponse.json();
   revalidatePath("/");
   revalidatePath("/events");
+  revalidatePath("/dashboard/events");
   return { ok: true, data: eventData };
 }
 

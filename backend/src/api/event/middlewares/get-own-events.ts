@@ -10,16 +10,12 @@ export default (config, { strapi }: { strapi: Strapi }) => {
 
     const user = ctx.state.user;
     if (!user) return next();
-
+    
     const userId = user.id;
-
     const query = {
       ...ctx.query,
       filters: { user: userId },
     };
-
-    console.log("query", query);
-
     ctx.query = query;
     await next();
   };

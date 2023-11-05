@@ -10,6 +10,7 @@ export default async function EventsList({
 }) {
   const resEvents = await getEventsAuthAction(eventsQuery);
   const events = resEvents?.data.data as StrapiEventData[];
+  
   if (!events) return null;
   return (
     <div className="px-6 max-w-6xl">
