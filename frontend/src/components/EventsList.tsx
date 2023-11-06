@@ -6,18 +6,16 @@ import EventCard from "@/components/EventCard";
 export default async function EventsList({
   eventsQuery,
 }: {
-  eventsQuery: string;
+  readonly eventsQuery: string;
 }) {
   const resEvents = await getPublicEventsAction(eventsQuery);
   const events = resEvents?.data.data as StrapiEventData[];
+  if (!events) return null;
   return (
-    <div>
+    <div className="px-6 max-w-6xl">
       <Suspense fallback={<div>Loading...</div>}>
         <div className="my-10">
-          {events &&
-            events.map((data: StrapiEventData) => (
-              <EventCard key={data.id} {...data} />
-            ))}
+          {events.map((data: StrapiEventData) => <EventCard key={data.id} {...data} />)}
         </div>
       </Suspense>
     </div>

@@ -13,7 +13,7 @@ export default function EventCard(data: StrapiEventData) {
     <div
       key={data.id}
       className="group grid grid-cols-2 grid-rows-2 rounded-3xl overflow-hidden bg-muted w-full border hover:border-primary">
-      <div className="flex flex-col justify-center gap-4 p-4 items-center w-full h-full bg-secondary text-white">
+      <div className="flex flex-col justify-center gap-4 p-4 items-center w-full h-full bg-primary text-white">
         <div className="flex flex-col items-center content-center text-center hover:scale-110 transition-transform duration-300">
           <div>{formatDate(attributes.date)}</div>
           <div>{formatTime(attributes.time)}</div>
@@ -22,7 +22,7 @@ export default function EventCard(data: StrapiEventData) {
           {attributes.location}
         </div>
       </div>      
-      <div className="relative bg-secondary/20 flex flex-col gap-2 items-center w-full h-full justify-center overflow-hidden transform duration-200 ">
+      <div className="relative bg-white flex flex-col gap-2 items-center w-full h-full justify-center overflow-hidden transform duration-200 ">
           {urlImage && (
             <Avatar className="h-20 w-20 peer">
               <AvatarImage src={urlImage} />

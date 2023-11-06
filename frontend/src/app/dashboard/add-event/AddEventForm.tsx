@@ -3,6 +3,7 @@ import "react-time-picker/dist/TimePicker.css";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import slugify from "slugify";
+import * as z from "zod";
 import { format, parse } from "date-fns";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,9 +11,10 @@ import { set, useForm } from "react-hook-form";
 import { ImageField } from "../../../components/ImageField";
 import TimePicker from "react-time-picker";
 import DatePicker from "react-date-picker";
-import createEvent from "@/actions/create-event";
+import checkSlug from "@/actions/check-slug";
 import { renderMessage } from "@/lib/render-message";
-import * as z from "zod";
+import { uploadImage, createEventOnServer } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -69,33 +71,35 @@ export function AddEventForm() {
     mode: "onChange",
   });
 
-  async function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    const formData = new FormData();
-    formData.set("image", values.image);
+  type EventFormValues = z.infer<typeof eventFormSchema>;
+
+  async function onSubmit(values: EventFormValues) {
+    const slug = slugify(values.title, { lower: true });
+    const hasSlug = await checkSlug(slug);
+
+    if (hasSlug?.data.slugAlreadyExists) {
+      renderMessage("Event with this title already exists.", "error");
+      return;
+    }
 
     renderMessage("Starting image upload.", "success");
-    const imageResponse = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
+    const imageId = await uploadImage(values.image);
 
-    if (!imageResponse.ok) renderMessage("Error uploading image.", "error");
-    const imageData = await imageResponse.json();
-    const imageId = imageData.data.id;
-    if (!imageId) renderMessage("Error uploading image.", "error");
+    if (!imageId) return; // uploadImage function handles the message in case of an error.
 
-    const date = form.getValues("date");
-    const parsedTime = parse(values.time, "HH:mm", new Date());
-    const time = format(parsedTime, "HH:mm:ss.SSS");
+    const time = format(
+      parse(values.time, "HH:mm", new Date()),
+      "HH:mm:ss.SSS"
+    );
 
     const eventFormData = new FormData();
     eventFormData.append(
       "data",
       JSON.stringify({
         title: values.title,
-        slug: slugify(values.title, { lower: true }),
+        slug,
         time,
-        date,
+        date: values.date,
         location: values.location,
         description: values.description,
         image: imageId,
@@ -103,9 +107,9 @@ export function AddEventForm() {
     );
 
     renderMessage("Creating your awesome event.", "success");
-    const response = await createEvent(eventFormData);
-    if (!response.ok) renderMessage("Error creating event.", "error");
-    else {
+    const eventCreated = await createEventOnServer(eventFormData);
+
+    if (eventCreated) {
       renderMessage("Event created successfully.", "success");
       router.push("/dashboard/events");
     }
@@ -113,7 +117,7 @@ export function AddEventForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-2/3">
         <FormField
           control={form.control}
           name="image"
@@ -136,20 +140,6 @@ export function AddEventForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Location</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>Location of the event.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
 
         <FormField
           control={form.control}
@@ -161,6 +151,21 @@ export function AddEventForm() {
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>Title of the event.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="location"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Location</FormLabel>
+              <FormControl>
+                <Input placeholder="shadcn" {...field} />
+              </FormControl>
+              <FormDescription>Location of the event.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

@@ -28,6 +28,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.47.0",
     "react-hot-toast": "^2.4.1",
+    "react-time-picker": "^6.5.2",
     "slugify": "^1.6.6",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
