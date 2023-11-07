@@ -47,6 +47,9 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "events"
+    },
+    "content": {
+      "type": "richtext"
     }
   }
 }
