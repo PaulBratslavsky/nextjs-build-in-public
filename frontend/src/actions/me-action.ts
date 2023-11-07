@@ -20,6 +20,7 @@ const meAction = async () => {
       cache: "no-cache",
     });
     const data = (await response.json()) as StrapiMEResponse;
+    if (data.error && authToken) cookies().delete("jwt");
     return { ok: true, data: data };
   } catch (error) {
     console.log(error);
