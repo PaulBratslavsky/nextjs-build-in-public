@@ -5,6 +5,11 @@ import { unstable_noStore as noStore } from "next/cache";
 
 const query = (slug: string) =>
   qs.stringify({
+    populate: {
+      image: {
+        fields: ["url", "alternativeText"],
+      },
+    },
     filters: {
       slug: slug,
     },
