@@ -9,7 +9,7 @@ export default async function EventsList({
   readonly eventsQuery: string;
 }) {
   const resEvents = await getEventsAuthAction(eventsQuery);
-  const events = resEvents?.data.data as StrapiEventData[];
+  const events = resEvents?.data?.data as StrapiEventData[];
   
   if (!events) return null;
   return (
