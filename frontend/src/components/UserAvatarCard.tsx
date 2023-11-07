@@ -3,9 +3,6 @@ import {
   TwitterIcon,
   YoutubeIcon,
   GithubIcon,
-  CalendarCheck,
-  AlarmCheck,
-  MapPinned,
 } from "lucide-react";
 
 import {
@@ -21,7 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function UserAvatarCard() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-6">
       <Card className="flex flex-col items-center rounded-3xl border-0 shadow-[0_0_25px_5px_rgba(0,0,0,0.05)] px-6 py-10 z-10 bg-background/70 backdrop-blur sticky">
         <CardHeader className="p-2">EVENT SPEAKER</CardHeader>
         <Separator className="mx-auto" />
@@ -75,24 +72,6 @@ export default function UserAvatarCard() {
             </li>
           </ul>
         </CardFooter>
-      </Card>
-      <Card className="flex flex-col w-full items-center rounded-3xl border-0 px-6 py-10 bg-muted/70 z-10  backdrop-blur">
-        <CardHeader className="p-2 uppercase">event information</CardHeader>
-        <Separator className="mx-auto" />
-        <CardContent className="p-0 pt-6 w-full flex flex-col items-center gap-4">
-          <span className="grid grid-cols-[1.5rem,auto] items-center gap-3 hover:scale-110 duration-200">
-            <CalendarCheck className="text-primary h-5 w-5" /> November 23, 2023
-            {/*{formatDate(attributes.date)}*/}
-          </span>
-          <span className="grid grid-cols-[1.5rem,auto] items-center gap-3 hover:scale-110 duration-200">
-            <AlarmCheck className="text-primary h-5 w-5" /> Time : 15:00 - 17:00
-            {/*{formatTime(attributes.time)}*/}
-          </span>
-          <span className="grid grid-cols-[1.5rem,auto] items-center gap-3 hover:scale-110 duration-200">
-            <MapPinned className="text-primary h-5 w-5" /> Auditorium, 2nd{" "}
-            {/*{attributes.location}*/}
-          </span>
-        </CardContent>
       </Card>
     </div>
   );

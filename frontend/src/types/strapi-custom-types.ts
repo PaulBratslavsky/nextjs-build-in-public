@@ -82,3 +82,23 @@ export interface Image {
     };
   };
 }
+
+
+export interface EventFlattenProps {
+  title: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  description: string;
+  content: string;
+  image: {
+    url: string;
+    alternativeText: string;
+    id: string;
+  };
+  location: string;
+  date: string;
+  time: string;
+  id: string;
+}
