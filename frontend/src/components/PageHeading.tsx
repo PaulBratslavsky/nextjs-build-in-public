@@ -9,7 +9,7 @@ export default function PageHeading({
 }) {
   return (
     <div>
-      <div className="my-4">
+      <div className="mb-4">
         <h3 className="text-lg font-medium">{heading}</h3>
         <p className="text-sm text-muted-foreground">
           {subheading}

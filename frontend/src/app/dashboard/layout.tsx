@@ -36,7 +36,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <>
-      <div className="md:hidden">
+      <div className="hidden">
         <Image
           src="/examples/forms-light.png"
           width={1280}
@@ -54,8 +54,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       </div>
       <div className="md:block bg-gray-50 max-h-screen">
         <div className="flex flex-col lg:flex-row">
-          <aside className="lg:w-1/4 p-6 bg-muted/70 h-auto lg:min-h-screen">
-            <DashboardHeader />
+          <aside className="lg:w-1/7 p-6 bg-muted/70 h-auto lg:min-h-screen">
+            {/* <DashboardHeader /> */}
             <SidebarNav items={sidebarNavItems} />
           </aside>
           <div className="flex-1 w-full p-6 h-[calc(100vh-64px)] overflow-auto">{children}</div>
