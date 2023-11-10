@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { unstable_noStore as noStore } from 'next/cache';
 
 
-const meAction = async () => {
+const meLoader = async () => {
   noStore();
   const url = `${process.env.STRAPI_URL}/api/users/me`;
   const authToken = cookies().get("jwt")?.value;
@@ -27,4 +27,4 @@ const meAction = async () => {
   }
 };
 
-export default meAction;
+export default meLoader;

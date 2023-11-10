@@ -1,10 +1,10 @@
 "use server";
 import { cookies } from "next/headers";
 import type { StrapiMEResponse } from "@/types/strapi-custom-types";
-import meAction from "./me-action";
+import meAction from "../loaders/me-loader";
 import { revalidatePath } from "next/cache";
 
-async function createEvent(formData: FormData) {
+async function createEventAction(formData: FormData) {
   const authToken = cookies().get("jwt")?.value;
   if (!authToken) return { error: "No JWT", ok: false };
 
@@ -36,4 +36,4 @@ async function createEvent(formData: FormData) {
   return { ok: true, data: eventData };
 }
 
-export default createEvent;
+export default createEventAction;

@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
-import createEvent from "@/actions/create-event";
+import createEvent from "@/actions/create-event-action";
 import { renderMessage } from "@/lib/render-message";
 
  
