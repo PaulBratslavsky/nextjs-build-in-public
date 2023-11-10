@@ -6,7 +6,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import meAction from "@/actions/me-action";
+import meAction from "@/loaders/me-loader";
 import { useRouter } from "next/navigation";
 
 import type { StrapiAuthResponse } from "@/types/strapi-custom-types";

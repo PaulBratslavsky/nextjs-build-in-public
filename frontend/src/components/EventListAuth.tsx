@@ -1,6 +1,6 @@
 import type { StrapiEventData } from "@/types/strapi-custom-types";
 import { Suspense } from "react";
-import getEventsAuthAction from "@/actions/get-events-auth-action";
+import getEventsAuthAction from "@/loaders/get-events-auth-loader";
 import EventCard from "@/components/EventCard";
 
 export default async function EventsList({

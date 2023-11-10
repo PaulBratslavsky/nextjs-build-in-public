@@ -11,7 +11,7 @@ import { set, useForm } from "react-hook-form";
 import { ImageField } from "../../../components/ImageField";
 import TimePicker from "react-time-picker";
 import DatePicker from "react-date-picker";
-import checkSlug from "@/actions/check-slug";
+import checkSlug from "@/loaders/check-slug-loader";
 import { renderMessage } from "@/lib/render-message";
 import { uploadImage, createEventOnServer } from "@/lib/utils";
 

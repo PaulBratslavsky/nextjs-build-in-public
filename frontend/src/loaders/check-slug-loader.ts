@@ -1,7 +1,7 @@
 "use server";
 import { unstable_noStore as noStore } from 'next/cache';
 
-const checkSlug = async (slug: string) => {
+const checkSlugLoader = async (slug: string) => {
   noStore();
   const url = `${process.env.STRAPI_URL}/api/events/get-slug/${slug}`;
 
@@ -16,4 +16,4 @@ const checkSlug = async (slug: string) => {
   }
 };
 
-export default checkSlug;
+export default checkSlugLoader;

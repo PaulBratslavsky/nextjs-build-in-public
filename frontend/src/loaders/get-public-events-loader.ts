@@ -1,7 +1,7 @@
 "use server";
 import { unstable_noStore as noStore } from 'next/cache';
 
-const getPublicEventsAction = async (query: string) => {
+const getPublicEventsLoader = async (query: string) => {
   noStore();
   const url = query
   ? `${process.env.STRAPI_URL}/api/events?${query}`
@@ -18,4 +18,4 @@ const getPublicEventsAction = async (query: string) => {
   }
 };
 
-export default getPublicEventsAction;
+export default getPublicEventsLoader;

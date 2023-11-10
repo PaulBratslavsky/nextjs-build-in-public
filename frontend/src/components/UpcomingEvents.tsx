@@ -1,7 +1,7 @@
 import qs from "qs";
 import type { StrapiEventData } from "@/types/strapi-custom-types";
 import { Suspense } from "react";
-import getPublicEventsAction from "@/actions/get-public-events";
+import getPublicEventsAction from "@/loaders/get-public-events-loader";
 import EventCardTile from "@/components/EventCardTile";
 
 const upcomingEventsQuery = qs.stringify({

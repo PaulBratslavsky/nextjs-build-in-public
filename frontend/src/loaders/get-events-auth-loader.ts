@@ -3,7 +3,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-const getEventsAuthAction = async (query: string) => {
+const getEventsAuthLoader = async (query: string) => {
   noStore();
   const authToken = cookies().get("jwt")?.value;
   if (!authToken) redirect("/login");
@@ -31,4 +31,4 @@ const getEventsAuthAction = async (query: string) => {
   }
 };
 
-export default getEventsAuthAction;
+export default getEventsAuthLoader;

@@ -15,7 +15,7 @@ const query = (slug: string) =>
     },
   });
 
-const getEventsDetails = async (slug: string) => {
+const getEventsDetailsLoader = async (slug: string) => {
   console.log("getEventsDetails", slug);
   noStore();
   const url = query
@@ -35,4 +35,4 @@ const getEventsDetails = async (slug: string) => {
   }
 };
 
-export default getEventsDetails;
+export default getEventsDetailsLoader;
