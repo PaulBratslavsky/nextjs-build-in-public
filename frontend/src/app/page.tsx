@@ -5,6 +5,7 @@ import qs from "qs";
 import fetcher from "@/lib/fetcher";
 import { sectionRenderer } from "@/lib/section-renderer";
 import EventList from "@/components/EventsList"
+import CTASection from "@/components/CTASection"
 
 const homePageQuery = qs.stringify({
   populate: {
@@ -45,11 +46,14 @@ export default async function Home() {
   if (!sections) return <div>No Sections Found</div>;
 
   return (
-    <div className="container flex min-h-screen flex-col items-center justify-between">
-      {sections.map((section: any, index: number) =>
-        sectionRenderer(section, index)
-      )}
-      <EventList eventsQuery={eventsQuery}/>
+    <div>
+      <div className="container flex min-h-screen flex-col items-center justify-between">
+        {sections.map((section: any, index: number) =>
+          sectionRenderer(section, index)
+        )}
+        <EventList eventsQuery={eventsQuery}/>
+      </div>
+      <CTASection />
     </div>
   );
 }

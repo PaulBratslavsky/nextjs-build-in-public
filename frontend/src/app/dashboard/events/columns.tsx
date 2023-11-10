@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Pencil, Trash2 } from "lucide-react"
+import { ArchiveRestore, ArchiveX, Pencil } from "lucide-react"
 
 import { formatTime } from "@/lib/api-helpers"
 import { StrapiEventData } from "@/types/strapi-custom-types"
@@ -53,7 +53,8 @@ export const columns: ColumnDef<StrapiEventData>[] = [
       return (
         <div className="flex gap-1">
         <Button size="icon" variant="ghost" className="hover:text-white"><Pencil className="h-4 w-4" /></Button>
-        <Button size="icon" variant="ghost" className="hover:text-white"><Trash2 className="h-4 w-4" /></Button>
+        <Button size="icon" variant="ghost" className="hover:text-white"><ArchiveX className="h-5 w-5" /></Button>
+        <Button size="icon" variant="ghost" className="hover:text-white"><ArchiveRestore className="h-5 w-5" /></Button>
         </div>
       )
     },
