@@ -24,12 +24,17 @@ export default async function UpcomingEvents() {
   if (!upcomingEvents) return null;
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="my-10">
-        {upcomingEvents.map((data: StrapiEventData) => (
-          <EventCard key={data.id} {...data} />
-        ))}
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="my-10">
+          {upcomingEvents.map((data: StrapiEventData) => (
+            <EventCard key={data.id} {...data} />
+          ))}
+        </div>
+      </Suspense>
+      <div className="my-10 text-xl rounded-3xl bg-primary text-primary-foreground px-6 py-4 w-fit mx-auto shadow">
+        Load more events ...
       </div>
-    </Suspense>
+    </div>
   );
 }
