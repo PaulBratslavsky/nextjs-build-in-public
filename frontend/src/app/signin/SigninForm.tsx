@@ -84,7 +84,7 @@ const SigninForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="*************" {...field} />
+                <Input placeholder="*************" {...field} type="password" />
               </FormControl>
               <FormDescription>
                 Use a good, long, unique password. Not pass123.

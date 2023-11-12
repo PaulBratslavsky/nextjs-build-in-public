@@ -1,7 +1,25 @@
 import UpcomingEvents from "@/components/UpcomingEvents";
 import AllEvents from "@/components/AllEvents";
+import getPublicEventsAction from '@/actions/get-public-events'
+import { StrapiEventData } from "@/types/strapi-custom-types"
+import qs from "qs"
+
+const eventsQuery = qs.stringify({
+  populate: {
+    image: {
+      fields: ["url", "alternativeText"],
+    },
+  },
+  sort: ["date:desc"],
+  pagination: {
+    pageSize: 5,
+    page: 1,
+  },
+});
 
 export default async function EventsPage() {
+  const resEvents = await getPublicEventsAction(eventsQuery);
+  const events = resEvents?.data.data as StrapiEventData[];
   return (
     <div className="container mx-auto max-w-6xl min-h-screen">
       <div>
