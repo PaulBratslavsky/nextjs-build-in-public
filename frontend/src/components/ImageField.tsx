@@ -3,7 +3,7 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 
 interface ImageFieldProps {
-  name: string;
+  name?: string;
   file: File | undefined;
   onFileChange: (file: File | undefined) => void;
   previewImage: string | null;
@@ -19,7 +19,6 @@ export function ImageField({
   previewImage,
   onPreviewImageChange,
   existingPreviewUrl,
-  ...rest
 }: ImageFieldProps) {
   
   const FILE_SIZE_LIMIT = 2 * 1024 * 1024; // 2MB
