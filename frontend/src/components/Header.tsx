@@ -1,5 +1,5 @@
 "use client";
-import { buttonVariants, Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { getStrapiMedia } from "@/lib/api-helpers";
 import { useAppContext } from "@/context/AppContext";
 import Link from "next/link";
@@ -80,7 +80,7 @@ const Header = ({ data }: { data: HeaderProps }) => {
     alert("Logout");
   }
 
-  const { user } = useAppContext();
+  const { user } = useAppContext() as any;
 
   console.log(user);
 
