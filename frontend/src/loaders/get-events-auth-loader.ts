@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 const getEventsAuthLoader = async (query: string) => {
   noStore();
   const authToken = cookies().get("jwt")?.value;
-  if (!authToken) redirect("/login");
+  // if (!authToken) redirect("/signin");
 
   const url = query
     ? `${process.env.STRAPI_URL}/api/events?${query}`

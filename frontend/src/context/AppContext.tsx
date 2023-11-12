@@ -6,7 +6,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import meAction from "@/loaders/me-loader";
+import getMeLoader from "@/loaders/get-me-loader";
 import { useRouter } from "next/navigation";
 
 import type { StrapiAuthResponse } from "@/types/strapi-custom-types";
@@ -31,9 +31,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const router = useRouter();
   const fetchData = useCallback(async () => {
     try {
-      const response = (await meAction()) as MeActonResponse;
-      if (response.data.error) return router.push("/signin");
-      if (response?.data.data) setUser(response.data);
+      const response = (await getMeLoader()) as MeActonResponse;
+      const user = response.data.error ? null : response.data;
+      if (user) setUser(user);
+      // else router.push("/");
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -41,7 +42,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   console.log("user", user);
   return (

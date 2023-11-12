@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 import type { StrapiMEResponse } from "@/types/strapi-custom-types";
-import meAction from "../loaders/me-loader";
+import meAction from "../loaders/get-me-loader";
 import { revalidatePath } from "next/cache";
 
 async function createEventAction(formData: FormData) {

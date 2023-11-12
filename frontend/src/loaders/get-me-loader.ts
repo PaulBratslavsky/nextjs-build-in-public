@@ -2,11 +2,19 @@
 import type { StrapiMEResponse } from "@/types/strapi-custom-types";
 import { cookies } from "next/headers";
 import { unstable_noStore as noStore } from 'next/cache';
+import qs from "qs";
 
+const querystring = qs.stringify({
+  populate: {
+    image: {
+      fields: ["url", "alternativeText"]
+    }
+  }
+});
 
-const meLoader = async () => {
+const getMeLoader = async () => {
   noStore();
-  const url = `${process.env.STRAPI_URL}/api/users/me`;
+  const url = `${process.env.STRAPI_URL}/api/users/me?` + querystring;
   const authToken = cookies().get("jwt")?.value;
   if (!authToken) return { error: "No JWT", ok: false };
 
@@ -27,4 +35,4 @@ const meLoader = async () => {
   }
 };
 
-export default meLoader;
+export default getMeLoader;

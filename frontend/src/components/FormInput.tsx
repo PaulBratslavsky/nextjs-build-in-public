@@ -13,6 +13,7 @@ export function FormInput({
   data: any;
   defaultValue?: string;
 }>) {
+  console.log(data, "from form input");
   return (
     <div className="w-full">
       <div>
