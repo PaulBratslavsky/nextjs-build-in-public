@@ -1,13 +1,14 @@
 const localEnv = process.env.ENVIROMENT === "development";
 
 const fetcher = async (resource: string, query?: string) => {
+  const strapiUrl = process.env.STRAPI_URL || "http://localhost:1337";
   let res = null;
 
   try {
     // Build the URL with the optional query parameter
     const url = query
-      ? `http://localhost:1337/api/${resource}?${query}`
-      : `http://localhost:1337/api/${resource}`;
+      ? `${strapiUrl}/api/${resource}?${query}`
+      : `${strapiUrl}/api/${resource}`;
 
     res = await fetch(url, { cache: localEnv ? "no-cache" : "default" });
   } catch (error) {

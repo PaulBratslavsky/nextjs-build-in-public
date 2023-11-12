@@ -47,6 +47,8 @@ const Header = ({ data }: { data: HeaderProps }) => {
     data.data.attributes.logo.image.data.attributes.url
   );
 
+  console.log(imageUrl, "IMAGE URL");
+
   function renderNavItems(navItems: HeroNavItem[]) {
     return navItems.map((navItem: HeroNavItem) => {
       const { id, text, href, isButton } = navItem;

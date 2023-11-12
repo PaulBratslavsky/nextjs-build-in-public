@@ -11,9 +11,11 @@ const nextConfig = {
       {
 
         protocol: 'https',
-        hostname: 'https://willing-cats-104ef00869.media.strapiapp.com',
-        port: '1337',
-        pathname: '/**',
+        hostname: 'willing-cats-104ef00869.strapiapp.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'willing-cats-104ef00869.media.strapiapp.com',
       },
       {
         protocol: 'https',
