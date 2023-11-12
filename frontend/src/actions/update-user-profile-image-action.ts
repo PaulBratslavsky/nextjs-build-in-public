@@ -64,28 +64,28 @@ async function updateProfileImageAction(prevState: any, formData: FormData) {
   // console.log(username, "FROM UPDATE PROFILE ACTION");
   return null;
 
-  if (currentDataValue) {
-    const dataObj = JSON.parse(currentDataValue as string);
-    const newObject = { ...dataObj, user: { connect: [userId] } };
-    const updatedDataValue = JSON.stringify(newObject);
-    formData.set("data", updatedDataValue);
-  }
+  // if (currentDataValue) {
+  //   const dataObj = JSON.parse(currentDataValue as string);
+  //   const newObject = { ...dataObj, user: { connect: [userId] } };
+  //   const updatedDataValue = JSON.stringify(newObject);
+  //   formData.set("data", updatedDataValue);
+  // }
 
-  const eventResponse = await fetch(
-    `${process.env.STRAPI_URL}/api/user/${userId}`,
-    {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-      body: formData,
-    }
-  );
+  // const eventResponse = await fetch(
+  //   `${process.env.STRAPI_URL}/api/user/${userId}`,
+  //   {
+  //     method: "PUT",
+  //     headers: {
+  //       Authorization: `Bearer ${authToken}`,
+  //     },
+  //     body: formData,
+  //   }
+  // );
 
-  const eventData = await eventResponse.json();
-  revalidatePath("/");
-  revalidatePath("/dashboard/profile");
-  return { ok: true, data: eventData };
+  // const eventData = await eventResponse.json();
+  // revalidatePath("/");
+  // revalidatePath("/dashboard/profile");
+  // return { ok: true, data: eventData };
 }
 
 export default updateProfileImageAction;
