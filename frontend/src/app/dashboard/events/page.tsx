@@ -2,7 +2,7 @@
 import qs from "qs";
 import { Suspense } from "react";
 import type { StrapiEventData } from "@/types/strapi-custom-types";
-import getEventsAuthAction from "@/actions/get-events-auth-action";
+import getEventsAuthLoader from "@/loaders/get-events-auth-loader";
 import { Archive } from "lucide-react"
 
 import {  columns } from "./columns";
@@ -22,7 +22,7 @@ const eventsQuery = qs.stringify({
 
 export default async function MyEventsRoute() {
 
-  const resEvents = await getEventsAuthAction(eventsQuery);
+  const resEvents = await getEventsAuthLoader(eventsQuery);
   const events = resEvents?.data.data as StrapiEventData[];
   const empty = [] as StrapiEventData[]
   if (!events) return null;
