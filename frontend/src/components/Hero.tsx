@@ -55,7 +55,7 @@ const Hero = ({ data }: { data: HeroProps }) => {
         <div className="md:col-span-1">
           <div className="p-4">
             <div className="flex flex-col gap-4">
-              <span className="text-sm font-bold leading-5 inline-block text-[#e23e57] uppercase">
+              <span className="text-sm font-bold leading-5 inline-block text-primary uppercase">
                 {subHeading}
               </span>
               <h3 className="text-4xl md:text-3xl lg:text-4xl font-bold uppercase">
@@ -68,7 +68,7 @@ const Hero = ({ data }: { data: HeroProps }) => {
           </div>
           <div className="">
             <div className="flex">
-              <div className="rounded-xl border-b-[3px] p-6 mb-6 bg-slate-100 border-b-[#e23e57]">
+              <div className="rounded-xl border-b-[3px] p-6 mb-6 bg-slate-100 border-b-primary">
                 <ul>
                   {features.map((feature: HeroFeature) => (
                     <li className="mb-4 flex items-center" key={feature.id}>
