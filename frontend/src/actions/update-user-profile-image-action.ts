@@ -51,9 +51,6 @@ async function updateProfileImageAction(prevState: any, formData: FormData) {
     file: formData.get("file"),
   });
 
-  for (let pair of formData.entries()) {
-    console.dir(pair[0] + ", " + pair[1]);
-  }
 
   if (!validatedFields.success) {
     return {
@@ -62,9 +59,9 @@ async function updateProfileImageAction(prevState: any, formData: FormData) {
     };
   }
 
-  const { username } = validatedFields.data;
+  // const { username } = validatedFields.data;
 
-  console.log(username, "FROM UPDATE PROFILE ACTION");
+  // console.log(username, "FROM UPDATE PROFILE ACTION");
   return null;
 
   if (currentDataValue) {

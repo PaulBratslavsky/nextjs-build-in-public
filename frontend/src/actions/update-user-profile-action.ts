@@ -35,10 +35,6 @@ async function updateUserProfileAction(prevState: any, formData: FormData) {
     file: formData.get("file"),
   });
 
-  for (let pair of formData.entries()) {
-    console.dir(pair[0] + ", " + pair[1]);
-  }
-
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
