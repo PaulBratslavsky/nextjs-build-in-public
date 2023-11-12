@@ -34,7 +34,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
       const response = (await getMeLoader()) as MeActonResponse;
       const user = response.data.error ? null : response.data;
       if (user) setUser(user);
-      // else router.push("/");
+      else router.push("/");
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
