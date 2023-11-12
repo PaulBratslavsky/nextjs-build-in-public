@@ -4,7 +4,8 @@ export async function POST(request: Request ) {
   const url = `${process.env.STRAPI_URL}/api/upload`;
 
   const cookieStore = cookies()
-  const authToken = cookieStore.get('jwt')
+  const authToken = cookieStore.get('jwt')?.value;
+
   if (!authToken) return { error: "No JWT", ok: false };
 
   const formData = await request.formData()
@@ -22,6 +23,5 @@ export async function POST(request: Request ) {
   });
 
   const data = await response.json();
-  console.log(data, "###### FROM UPLOAD API ######");
   return Response.json({ data: data[0], ok: true });
 }
