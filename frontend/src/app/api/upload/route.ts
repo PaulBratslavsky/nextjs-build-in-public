@@ -1,9 +1,10 @@
-import type { NextRequest } from 'next/server'
-import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers'
 
-export async function POST(request: NextRequest ) {
+export async function POST(request: Request ) {
   const url = `${process.env.STRAPI_URL}/api/upload`;
-  const authToken = request.cookies.get('jwt')?.value;
+
+  const cookieStore = cookies()
+  const authToken = cookieStore.get('jwt')
   if (!authToken) return { error: "No JWT", ok: false };
 
   const formData = await request.formData()
@@ -22,5 +23,5 @@ export async function POST(request: NextRequest ) {
 
   const data = await response.json();
   console.log(data, "###### FROM UPLOAD API ######");
-  return NextResponse.json({ data: data[0], ok: true });
+  return Response.json({ data: data[0], ok: true });
 }
