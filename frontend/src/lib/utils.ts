@@ -47,8 +47,14 @@ export async function createEventOnServer(
     if (!response.ok) throw new Error("Error creating event.");
     return true;
   } catch (error) {
-    renderMessage(error.message, "error");
-    return false;
+    if (error instanceof Error) {
+      // If error is an instance of Error, it will have a message property
+      renderMessage(error.message, "error");
+    } else {
+      // Fallback for other types of thrown values
+      const errorMessage = typeof error === "string" ? error : "An unknown error occurred";
+      renderMessage(errorMessage, "error");
+    }    return false;
   }
 }
 
