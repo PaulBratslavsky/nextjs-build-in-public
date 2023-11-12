@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { StrapiAuthActionResponse } from "@/types/strapi-custom-types";
+import type { StrapiAuthActionResponse, StrapiAuthResponse } from "@/types/strapi-custom-types";
 import { useRouter } from "next/navigation";
 import { renderMessage } from "@/lib/render-message";
 import { useAppContext } from "@/context/AppContext";
@@ -46,7 +46,7 @@ const RegisterForm = () => {
     const result = (await registerAction(values)) as StrapiAuthActionResponse;
     if (result.ok) {
       renderMessage("Logged in successfully", "success");
-      setUser(result.data)
+      setUser(result.data as StrapiAuthResponse)
       router.push("/dashboard");
     } else result.error && renderMessage(result.error.message, "error");
   }
