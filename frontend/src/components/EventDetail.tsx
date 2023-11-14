@@ -32,6 +32,7 @@ function EventHeader({ data }: { data: EventFlattenProps }) {
 }
 
 function EventContent({ data }: { data: EventFlattenProps }) {
+  console.log(data, "DATA");
   const { content } = data;
   return (
     <div>
