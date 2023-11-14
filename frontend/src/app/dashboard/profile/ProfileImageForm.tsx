@@ -12,7 +12,9 @@ import { getStrapiMedia } from "@/lib/api-helpers";
 
 export function ProfileImageForm({ userData }: { userData: any }) {
   const { image } = userData.data;
-  const fullImageUrl = getStrapiMedia(image.url);
+  const fullImageUrl = image
+    ? getStrapiMedia(image.url)
+    : "https://picsum.photos/200";
   const [file, setFile] = useState<File>();
   const [previewImage, setPreviewImage] = useState<string | null>(
     fullImageUrl || null
