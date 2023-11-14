@@ -7,7 +7,7 @@ module.exports = (config, { strapi }) => {
       console.log("No user, Public events only.");
       ctx.query = {
         ...ctx.query,
-        filters: { isPublic: true },
+        filters: { ...ctx.query.filters, isPublic: true },
       };
       return await next();
     }
@@ -25,8 +25,6 @@ module.exports = (config, { strapi }) => {
     };
 
     console.log("Has user, get own events.");
-    console.log(user);
-
 
     const entryId = ctx.params.id ? ctx.params.id : undefined;
 
