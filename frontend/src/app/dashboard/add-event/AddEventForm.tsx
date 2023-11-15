@@ -2,16 +2,19 @@
 import "react-time-picker/dist/TimePicker.css";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
+import MDEditor from "@uiw/react-md-editor";
+import rehypeSanitize from "rehype-sanitize";
+
 import slugify from "slugify";
 import * as z from "zod";
 import { format, parse } from "date-fns";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { set, useForm } from "react-hook-form";
 import { ImageField } from "../../../components/ImageField";
 import TimePicker from "react-time-picker";
 import DatePicker from "react-date-picker";
-import checkSlug from "@/actions/check-slug";
+import checkSlug from "@/loaders/check-slug-loader";
 import { renderMessage } from "@/lib/render-message";
 import { uploadImage, createEventOnServer } from "@/lib/utils";
 
@@ -63,6 +66,8 @@ const defaultValues: Partial<EventFormValues> = {
 export function AddEventForm() {
   const router = useRouter();
   const [file, setFile] = useState<File>();
+  const [markdown, setMarkdown] = useState("**Hello world!!!**");
+
   const [previewImage, setPreviewImage] = useState<string | null>(null); // Step 1
 
   const form = useForm<EventFormValues>({
@@ -76,6 +81,8 @@ export function AddEventForm() {
   async function onSubmit(values: EventFormValues) {
     const slug = slugify(values.title, { lower: true });
     const hasSlug = await checkSlug(slug);
+
+    console.log(hasSlug, "from check slug");
 
     if (hasSlug?.data.slugAlreadyExists) {
       renderMessage("Event with this title already exists.", "error");
@@ -99,9 +106,11 @@ export function AddEventForm() {
         title: values.title,
         slug,
         time,
+        isPublic: true,
         date: values.date,
         location: values.location,
         description: values.description,
+        content: markdown,
         image: imageId,
       })
     );
@@ -114,6 +123,8 @@ export function AddEventForm() {
       router.push("/dashboard/events");
     }
   }
+
+  // TODO: ADD IS PUBLIC FIELD TO FORM AND TO SCHEMA
 
   return (
     <Form {...form}>
@@ -228,6 +239,16 @@ export function AddEventForm() {
             </FormItem>
           )}
         />
+        <div data-color-mode="light">
+          <MDEditor
+            value={markdown}
+            onChange={(value) => setMarkdown(value || "")}
+            previewOptions={{
+              rehypePlugins: [[rehypeSanitize]],
+            }}
+          />
+        </div>
+
         <Button type="submit">Create Event</Button>
       </form>
     </Form>

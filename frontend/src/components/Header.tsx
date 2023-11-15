@@ -1,5 +1,5 @@
 "use client";
-import { buttonVariants, Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { getStrapiMedia } from "@/lib/api-helpers";
 import { useAppContext } from "@/context/AppContext";
 import Link from "next/link";
@@ -47,6 +47,8 @@ const Header = ({ data }: { data: HeaderProps }) => {
     data.data.attributes.logo.image.data.attributes.url
   );
 
+  console.log(imageUrl, "IMAGE URL");
+
   function renderNavItems(navItems: HeroNavItem[]) {
     return navItems.map((navItem: HeroNavItem) => {
       const { id, text, href, isButton } = navItem;
@@ -80,7 +82,7 @@ const Header = ({ data }: { data: HeaderProps }) => {
     alert("Logout");
   }
 
-  const { user } = useAppContext();
+  const { user } = useAppContext() as any;
 
   console.log(user);
 

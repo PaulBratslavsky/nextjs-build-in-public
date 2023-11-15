@@ -1,22 +1,45 @@
-/**
- * `get-own-events` middleware
- */
+"use strict";
 
-import { Strapi } from "@strapi/strapi";
-
-export default (config, { strapi }: { strapi: Strapi }) => {
+module.exports = (config, { strapi }) => {
   return async (ctx, next) => {
-    strapi.log.info("In get-own-events middleware.");
+
+    if (!ctx.state.user) {
+      console.log("No user, Public events only.");
+      ctx.query = {
+        ...ctx.query,
+        filters: { ...ctx.query.filters, isPublic: true },
+      };
+      return await next();
+    }
 
     const user = ctx.state.user;
-    if (!user) return next();
-    
-    const userId = user.id;
-    const query = {
+    const userId = user?.id;
+
+    // This query allows user to populate the fields and relations
+    // if you need additional security you would update the query accordingly
+    // and remove ...ctx.query
+
+    ctx.query = {
       ...ctx.query,
       filters: { user: userId },
     };
-    ctx.query = query;
+
+    console.log("Has user, get own events.");
+
+    const entryId = ctx.params.id ? ctx.params.id : undefined;
+
+    let entry = null;
+
+    if (entryId) {
+      entry = await strapi.entityService.findOne("api::event.event", entryId, {
+        populate: "*",
+      });
+    }
+
+    if (entry && entry.author.id !== userId) {
+      return ctx.unauthorized(`You can't access this entry`);
+    }
+
     await next();
   };
 };

@@ -28,9 +28,6 @@ export default async function EventsPage() {
         </div> */}
         <UpcomingEvents />
         <AllEvents />
-        <div className="my-10 text-xl rounded-3xl bg-primary text-primary-foreground px-6 py-4 w-fit mx-auto shadow">
-          Load more events ...
-        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import RichText from "./RichText";
 
+
 function EventHeader({ data }: { data: EventFlattenProps }) {
   const urlImage = getStrapiMedia(data.image?.url);
   const altText = data.image?.alternativeText;
@@ -31,6 +32,7 @@ function EventHeader({ data }: { data: EventFlattenProps }) {
 }
 
 function EventContent({ data }: { data: EventFlattenProps }) {
+  console.log(data, "DATA");
   const { content } = data;
   return (
     <div>
@@ -41,7 +43,7 @@ function EventContent({ data }: { data: EventFlattenProps }) {
   );
 }
 
-export default function EventDetails({ data }: { data: EventDetails }) {
+export default function EventDetails({ data }: { data: EventFlattenProps }) {
   return (
     <div className="space-y-10">
       <EventHeader data={data} />

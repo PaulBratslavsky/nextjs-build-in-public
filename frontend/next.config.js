@@ -9,6 +9,15 @@ const nextConfig = {
         pathname: '/uploads/**',
       },
       {
+
+        protocol: 'https',
+        hostname: 'willing-cats-104ef00869.strapiapp.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'willing-cats-104ef00869.media.strapiapp.com',
+      },
+      {
         protocol: 'https',
         hostname: 'images.pexels.com',
       },

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import getEventsDetails from "@/actions/get-event-details";
+import getEventsDetails from "@/loaders/get-event-details-loader";
 import UserAvatarCard from "@/components/UserAvatarCard";
 import EventInfoCard from "@/components/EventInfoCard";
 import EventDetail from "@/components/EventDetail";

@@ -39,6 +39,9 @@ export interface StrapiMEResponse {
   data?: {
     id: string;
   }
+  error?: {
+    message: string;
+  }
 }
 
 export interface StrapiAuthActionResponse {

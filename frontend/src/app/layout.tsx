@@ -35,12 +35,12 @@ export default async function RootLayout({
   //TODO: HANDLE ERROR
   if (res === null) return <></>;
 
-  const global = (await res.json()) as APIResponseData<"api::global.global">;
+  const global = (await res.json());
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppProvider authUser={null}>
+        <AppProvider>
         <Toaster />
         <Header data={global} />
         {children}

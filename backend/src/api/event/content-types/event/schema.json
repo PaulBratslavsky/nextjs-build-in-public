@@ -50,6 +50,10 @@
     },
     "content": {
       "type": "richtext"
+    },
+    "isPublic": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
