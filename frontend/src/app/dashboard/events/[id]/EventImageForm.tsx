@@ -2,7 +2,6 @@
 import { useState } from "react";
 import z from "zod";
 import { useForm } from "react-hook-form";
-
 import { ImageField } from "@/components/ImageField";
 import { Button } from "@/components/ui/button";
 import { getStrapiMedia } from "@/lib/api-helpers";
@@ -48,14 +47,18 @@ export function EventImageForm({ eventData }: { readonly eventData: any }) {
   type EventFormValues = z.infer<typeof eventFormSchema>;
 
   async function onSubmit(values: EventFormValues) {
-    renderMessage("Removing old image.", "success");
-
-    if (currentImageId) await deleteImage(currentImageId);
+    if (currentImageId) {
+      renderMessage("Removing old image.", "success");
+      await deleteImage(currentImageId);
+    }
 
     renderMessage("Starting image upload.", "success");
     const imageId = await uploadImage(values.image);
 
-    if (!imageId) return; // uploadImage function handles the message in case of an error.
+    if (!imageId) {
+      renderMessage("No image id provided.", "error");
+      return;
+    }
 
     const eventFormData = { data: { image: imageId } };
 
@@ -64,9 +67,8 @@ export function EventImageForm({ eventData }: { readonly eventData: any }) {
       eventFormData,
       eventData.data.id
     );
-    if (eventUpdated) {
-      renderMessage("Image updated successfully.", "success");
-    }
+
+    if (eventUpdated) renderMessage("Image updated successfully.", "success");
   }
 
   return (

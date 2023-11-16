@@ -2,7 +2,6 @@
 import { useState } from "react";
 import z from "zod";
 import { useForm } from "react-hook-form";
-
 import { ImageField } from "@/components/ImageField";
 import { Button } from "@/components/ui/button";
 import { getStrapiMedia } from "@/lib/api-helpers";
@@ -22,7 +21,6 @@ import {
 
 export function UserImageForm({ userData }: { readonly userData: any }) {
   const { image } = userData.data;
-  console.log(userData.data.id, "from user image form");
   const currentImageId = image?.id;
 
   const fullImageUrl = image
@@ -56,28 +54,21 @@ export function UserImageForm({ userData }: { readonly userData: any }) {
     renderMessage("Starting image upload.", "success");
     const imageId = await uploadImage(values.image);
 
-    if (!imageId) return; // uploadImage function handles the message in case of an error.
-
-    // console.log("################## UPDATE USER FORM ##################");
-
-    // const userFormData = new FormData();
-    // userFormData.append(
-    //   "data",
-    //   JSON.stringify({
-    //     image: imageId,
-    //   })
-    // );
-
+    if (!imageId) {
+      renderMessage("No image id provided.", "error");
+      return;
+    } 
+    
     const userFormData = { image: imageId };
 
     renderMessage("Updating your awesome user image.", "success");
+
     const userUpdated = await updateUserOnServer(
       userFormData,
       userData.data.id
     );
-    if (userUpdated) {
-      renderMessage("Image updated successfully.", "success");
-    }
+
+    if (userUpdated) renderMessage("Image updated successfully.", "success");
   }
 
   return (
