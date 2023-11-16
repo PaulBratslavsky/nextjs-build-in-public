@@ -96,8 +96,6 @@ export function UserImageForm({ userData }: { readonly userData: any }) {
             </FormItem>
           )}
         />
-        <div>{currentImageId && currentImageId}</div>
-
         <Button type="submit">Update Event Image</Button>
       </form>
     </Form>
