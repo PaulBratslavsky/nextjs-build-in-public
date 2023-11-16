@@ -1,0 +1,114 @@
+"use client";
+import { useState } from "react";
+import z from "zod";
+import { useForm } from "react-hook-form";
+
+import { ImageField } from "@/components/ImageField";
+import { Button } from "@/components/ui/button";
+import { getStrapiMedia } from "@/lib/api-helpers";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { renderMessage } from "@/lib/render-message";
+import { uploadImage, deleteImage, updateUserOnServer } from "@/lib/utils";
+
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+export function UserImageForm({ userData }: { readonly userData: any }) {
+  const { image } = userData.data;
+  console.log(userData.data.id, "from user image form");
+  const currentImageId = image?.id;
+
+  const fullImageUrl = image
+    ? getStrapiMedia(image.url)
+    : "https://picsum.photos/200";
+
+  const [file, setFile] = useState<File>();
+  const [previewImage, setPreviewImage] = useState<string | null>(
+    fullImageUrl || null
+  );
+
+  const eventFormSchema = z.object({
+    image: z.any().refine((file) => {
+      return file !== undefined;
+    }, "Image is required."),
+  });
+
+  const form = useForm<EventFormValues>({
+    resolver: zodResolver(eventFormSchema),
+    mode: "onChange",
+  });
+
+  type EventFormValues = z.infer<typeof eventFormSchema>;
+
+  async function onSubmit(values: EventFormValues) {
+    if (currentImageId) {
+      renderMessage("Removing old image.", "success");
+      await deleteImage(currentImageId);
+    }
+
+    renderMessage("Starting image upload.", "success");
+    const imageId = await uploadImage(values.image);
+
+    if (!imageId) return; // uploadImage function handles the message in case of an error.
+
+    // console.log("################## UPDATE USER FORM ##################");
+
+    // const userFormData = new FormData();
+    // userFormData.append(
+    //   "data",
+    //   JSON.stringify({
+    //     image: imageId,
+    //   })
+    // );
+
+    const userFormData = { image: imageId };
+
+    renderMessage("Updating your awesome user image.", "success");
+    const userUpdated = await updateUserOnServer(
+      userFormData,
+      userData.data.id
+    );
+    if (userUpdated) {
+      renderMessage("Image updated successfully.", "success");
+    }
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-2/3">
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Image</FormLabel>
+              <FormControl>
+                <ImageField
+                  file={file}
+                  onFileChange={(selected) => {
+                    setFile(selected);
+                    field.onChange(selected);
+                  }}
+                  previewImage={previewImage}
+                  onPreviewImageChange={setPreviewImage}
+                />
+              </FormControl>
+              <FormDescription>Event image</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div>{currentImageId && currentImageId}</div>
+
+        <Button type="submit">Update Event Image</Button>
+      </form>
+    </Form>
+  );
+}

@@ -10,7 +10,7 @@ import * as z from "zod";
 import { format, parse } from "date-fns";
 import { SetStateAction, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { ImageField } from "../../../components/ImageField";
 import TimePicker from "react-time-picker";
 import DatePicker from "react-date-picker";

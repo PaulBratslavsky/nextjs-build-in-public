@@ -2,8 +2,10 @@
 
 module.exports = (config, { strapi }) => {
   return async (ctx, next) => {
+    const user = ctx.state.user;
 
-    if (!ctx.state.user) {
+    // Handle public events for non-authenticated users
+    if (!user) {
       console.log("No user, Public events only.");
       ctx.query = {
         ...ctx.query,
@@ -12,34 +14,23 @@ module.exports = (config, { strapi }) => {
       return await next();
     }
 
-    const user = ctx.state.user;
-    const userId = user?.id;
-
-    // This query allows user to populate the fields and relations
-    // if you need additional security you would update the query accordingly
-    // and remove ...ctx.query
-
+    // For authenticated users
+    const userId = user.id;
+    console.log("Has user, get own events.");
     ctx.query = {
       ...ctx.query,
       filters: { user: userId },
     };
 
-    console.log("Has user, get own events.");
-
-    const entryId = ctx.params.id ? ctx.params.id : undefined;
-
-    let entry = null;
-
+    const entryId = ctx.params.id;
     if (entryId) {
-      entry = await strapi.entityService.findOne("api::event.event", entryId, {
-        populate: "*",
-      });
-    }
-
-    if (entry && entry.author.id !== userId) {
-      return ctx.unauthorized(`You can't access this entry`);
+      const entry = await strapi.entityService.findOne("api::event.event", entryId, { populate: "*" });
+      if (entry && entry.author.id !== userId) {
+        return ctx.unauthorized(`You can't access this entry`);
+      }
     }
 
     await next();
   };
 };
+
