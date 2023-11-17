@@ -116,21 +116,17 @@ export async function updateUserOnServer(
   userData: object,
   id: string
 ): Promise<boolean> {
-  try {
-    const response = await updateUser(userData, id);
-    if (!response.ok) throw new Error("Error updating user.");
-    return true;
-  } catch (error) {
-    if (error instanceof Error) {
-      renderMessage(error.message, "error");
-    } else {
-      const errorMessage =
-        typeof error === "string" ? error : "An unknown error occurred";
-      renderMessage(errorMessage, "error");
-    }
+  const response = await updateUser(userData, id);
+
+  if (response.error) {
+    renderMessage(response.error.message, "error");
     return false;
+  } else {
+    renderMessage("User updated successfully!", "success");
+    return true 
   }
 }
+
 
 export function flattenAttributes(data: any): any {
   // Base case for recursion

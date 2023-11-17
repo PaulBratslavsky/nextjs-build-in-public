@@ -387,7 +387,8 @@ export interface ApiEventEvent extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     content: Attribute.RichText;
-    isPublic: Attribute.Boolean & Attribute.DefaultTo<false>;
+    status: Attribute.Enumeration<['PUBLIC', 'DRAFT', 'ARCHIVED']> &
+      Attribute.DefaultTo<'PUBLIC'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

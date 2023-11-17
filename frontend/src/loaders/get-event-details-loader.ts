@@ -16,7 +16,6 @@ const query = (slug: string) =>
   });
 
 const getEventsDetailsLoader = async (slug: string) => {
-  console.log("getEventsDetails", slug);
   noStore();
   const url = query
     ? `${process.env.STRAPI_URL}/api/events?${query(slug)}`

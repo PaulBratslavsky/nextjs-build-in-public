@@ -12,7 +12,6 @@ import { uploadImage, deleteImage, updateEventOnServer } from "@/lib/utils";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -34,7 +33,6 @@ export function EventImageForm({ eventData }: { readonly eventData: any }) {
 
   const eventFormSchema = z.object({
     image: z.any().refine((file) => {
-      console.log(file, "from validation");
       return file !== undefined;
     }, "Image is required."),
   });
