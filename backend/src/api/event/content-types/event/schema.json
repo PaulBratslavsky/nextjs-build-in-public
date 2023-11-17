@@ -51,9 +51,14 @@
     "content": {
       "type": "richtext"
     },
-    "isPublic": {
-      "type": "boolean",
-      "default": false
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "PUBLIC",
+        "DRAFT",
+        "ARCHIVED"
+      ],
+      "default": "PUBLIC"
     }
   }
 }

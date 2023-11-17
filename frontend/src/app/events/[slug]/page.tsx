@@ -12,6 +12,8 @@ const DetailPage = async ({
   const eventDetailsResponse = await getEventsDetails(slug);
   const eventData = eventDetailsResponse?.data;
 
+  if (!eventData) return <div>Event not found.</div>;
+
   return (
     <div className="container my-10">
       <div className="grid lg:grid-cols-[auto,30%] gap-12 lg:gap-32">
