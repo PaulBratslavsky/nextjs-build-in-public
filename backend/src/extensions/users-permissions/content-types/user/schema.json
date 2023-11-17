@@ -66,29 +66,36 @@
       "configurable": false
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "bio": {
       "type": "text"
-    },
-    "social": {
-      "displayName": "Social",
-      "type": "component",
-      "repeatable": true,
-      "component": "elements.social"
     },
     "events": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::event.event",
       "mappedBy": "user"
+    },
+    "twitter": {
+      "type": "string"
+    },
+    "linkedin": {
+      "type": "string"
+    },
+    "youtube": {
+      "type": "string"
+    },
+    "github": {
+      "type": "string"
     }
   }
 }

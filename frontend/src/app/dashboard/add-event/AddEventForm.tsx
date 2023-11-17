@@ -36,7 +36,6 @@ type EventFormValues = z.infer<typeof eventFormSchema>;
 
 const eventFormSchema = z.object({
   image: z.any().refine((file) => {
-    console.log(file, "from validation");
     return file !== undefined;
   }, "Image is required."),
 
@@ -85,8 +84,6 @@ export function AddEventForm() {
       trim: true,
     });
     const hasSlug = await checkSlug(slug);
-
-    console.log(hasSlug, "from check slug");
 
     if (hasSlug?.data.slugAlreadyExists) {
       renderMessage("Event with this title already exists.", "error");

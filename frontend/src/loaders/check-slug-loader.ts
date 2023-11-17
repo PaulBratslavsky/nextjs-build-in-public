@@ -8,8 +8,6 @@ const checkSlugLoader = async (slug: string) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(slug, "#######################");
-    console.log(data.slugAlreadyExists, "#######################");
     return { ok: true, data: data };
   } catch (error) {
     console.log(error);

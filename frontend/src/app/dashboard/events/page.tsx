@@ -40,7 +40,6 @@ export default async function MyEventsRoute() {
   return (
     <div className="space-y-6 container mx-auto">
       <PageHeading heading="My Events" subheading="Manage your events." />
-
       <Suspense fallback={<div>Loading...</div>}>
         <Card className="p-8  space-y-6 border-none">
           <DataTable columns={columns} data={events} />
