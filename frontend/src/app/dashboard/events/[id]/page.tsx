@@ -12,10 +12,12 @@ export default async function ProfileRoute({
   const eventData = await getEventDetailsByIdLoader(id);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 container mx-auto">
       <PageHeading heading="Edit Event" subheading="Edit an existing event." />
-      <EventImageForm eventData={eventData} />
-      <EditEventForm eventData={eventData} />
+      <div className="grid lg:grid-cols-[auto,30%] gap-8 lg:gap-16">
+        <EditEventForm eventData={eventData} />
+        <EventImageForm eventData={eventData} />
+      </div>
     </div>
   );
 }
