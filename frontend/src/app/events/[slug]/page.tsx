@@ -20,7 +20,7 @@ const DetailPage = async ({
         <Suspense fallback={<div>Loading...</div>}>
           <EventDetail data={eventData}/>
           <div>
-          <UserAvatarCard />
+          <UserAvatarCard data={eventData.user}/>
           <EventInfoCard data={eventData}/>
           </div>
         </Suspense>

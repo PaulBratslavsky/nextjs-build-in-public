@@ -54,6 +54,11 @@ export function UserImageForm({ userData }: { readonly userData: any }) {
     renderMessage("Starting image upload.", "success");
     const imageId = await uploadImage(values.image);
 
+    if (!imageId) {
+      renderMessage("No image id provided.", "error");
+      return;
+    }
+
     const userFormData = { image: imageId };
     await updateUserOnServer(userFormData, userData.data.id);
   }

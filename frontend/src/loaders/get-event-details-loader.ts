@@ -9,6 +9,14 @@ const query = (slug: string) =>
       image: {
         fields: ["url", "alternativeText"],
       },
+      user: {
+        fields: ["username","bio", "twitter", "youtube", "linkedin"],
+        populate: {
+          image: {
+            fields: ["url", "alternativeText"],
+          },
+        },
+      }
     },
     filters: {
       slug: slug,

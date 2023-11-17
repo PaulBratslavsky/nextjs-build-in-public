@@ -1,24 +1,19 @@
 "use client";
-import "react-time-picker/dist/TimePicker.css";
-import "react-date-picker/dist/DatePicker.css";
-import "react-calendar/dist/Calendar.css";
-import MDEditor from "@uiw/react-md-editor";
-import rehypeSanitize from "rehype-sanitize";
 
 import slugify from "slugify";
 import * as z from "zod";
-import { format, parse } from "date-fns";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ImageField } from "../../../components/ImageField";
-import TimePicker from "react-time-picker";
-import DatePicker from "react-date-picker";
+
 import checkSlug from "@/loaders/check-slug-loader";
 import { renderMessage } from "@/lib/render-message";
 import { uploadImage, createEventOnServer } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import EventForm from "@/components/EventForm";
+
 import {
   Form,
   FormControl,
@@ -51,6 +46,7 @@ const eventFormSchema = z.object({
   time: z.string(),
   date: z.date(),
   description: z.string().max(160).min(4),
+  status: z.boolean(),
 });
 
 // This can come from your database or API.
@@ -59,7 +55,7 @@ const defaultValues: Partial<EventFormValues> = {
   location: "My Awesome Location",
   description: "Tell us about your awesome event.",
   time: "10:00",
-  date: new Date(),
+  status: false,
 };
 
 export function AddEventForm() {
@@ -95,24 +91,19 @@ export function AddEventForm() {
 
     if (!imageId) return; // uploadImage function handles the message in case of an error.
 
-    const time = format(
-      parse(values.time, "HH:mm", new Date()),
-      "HH:mm:ss.SSS"
-    );
-
     const eventFormData = new FormData();
     eventFormData.append(
       "data",
       JSON.stringify({
         title: values.title,
         slug,
-        time,
-        isPublic: true,
+        time: values.time,
         date: values.date,
         location: values.location,
         description: values.description,
         content: markdown,
         image: imageId,
+        status: values.status ? "PUBLIC" : "DRAFT",
       })
     );
 
@@ -154,102 +145,12 @@ export function AddEventForm() {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input placeholder="shadcn" {...field} />
-                </FormControl>
-                <FormDescription>Title of the event.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
+          <EventForm
+            form={form}
+            onSubmit={onSubmit}
+            markdown={markdown}
+            setMarkdown={setMarkdown}
           />
-
-          <FormField
-            control={form.control}
-            name="location"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Location</FormLabel>
-                <FormControl>
-                  <Input placeholder="shadcn" {...field} />
-                </FormControl>
-                <FormDescription>Location of the event.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="time"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Time</FormLabel>
-                <FormControl>
-                  <TimePicker
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    {...field}
-                    disableClock
-                  />
-                </FormControl>
-                <FormDescription>Time of the event.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="date"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Date</FormLabel>
-                <FormControl>
-                  <DatePicker
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>Date of the event.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Cool event description."
-                    className="resize-none"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>
-                  Tell us more about your awesome event.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div data-color-mode="light">
-            <MDEditor
-              value={markdown}
-              onChange={(value) => setMarkdown(value || "")}
-              previewOptions={{
-                rehypePlugins: [[rehypeSanitize]],
-              }}
-            />
-          </div>
 
           <Button type="submit">Create Event</Button>
         </form>

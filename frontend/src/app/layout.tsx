@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import type { APIResponseData } from "@/types/types";
 import { AppProvider } from "@/context/AppContext";
 
 import { Toaster } from "react-hot-toast";
@@ -38,7 +37,7 @@ export default async function RootLayout({
   const global = (await res.json());
 
   return (
-    <html lang="en">
+    <html lang="en" className="h-auto">
       <body className={inter.className}>
         <AppProvider>
         <Toaster />

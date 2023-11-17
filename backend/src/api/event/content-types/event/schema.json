@@ -28,9 +28,6 @@
     "date": {
       "type": "date"
     },
-    "time": {
-      "type": "time"
-    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -59,6 +56,9 @@
         "ARCHIVED"
       ],
       "default": "PUBLIC"
+    },
+    "time": {
+      "type": "string"
     }
   }
 }

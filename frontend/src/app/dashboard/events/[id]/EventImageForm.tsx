@@ -60,7 +60,6 @@ export function EventImageForm({ eventData }: { readonly eventData: any }) {
 
     const eventFormData = { data: { image: imageId } };
 
-    renderMessage("Updating your awesome event image.", "success");
     const eventUpdated = await updateEventOnServer(
       eventFormData,
       eventData.data.id

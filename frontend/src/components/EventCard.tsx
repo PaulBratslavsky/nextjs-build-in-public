@@ -17,7 +17,7 @@ export default function EventCard(data: StrapiEventData) {
       <div className="grid grid-cols-[35%,65%] sm:flex sm:flex-col justify-center gap-4 p-4 items-center w-full h-full bg-primary text-white">
         <div className="flex flex-col items-center content-center text-center hover:scale-110 transition-transform duration-300">
           <div>{formatDate(attributes.date)}</div>
-          <div>{formatTime(attributes.time)}</div>
+          <div>{attributes.time}</div>
         </div>
         <div className="text-center font-semibold hover:scale-110 transition-transform duration-300">
           {attributes.location}

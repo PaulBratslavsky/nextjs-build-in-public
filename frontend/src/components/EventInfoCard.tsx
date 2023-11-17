@@ -1,5 +1,5 @@
 import type { EventFlattenProps } from "@/types/strapi-custom-types";
-import { formatDate, formatTime } from "@/lib/api-helpers";
+import { formatDate } from "@/lib/api-helpers";
 import { CalendarCheck, AlarmCheck, MapPinned } from "lucide-react";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -19,7 +19,7 @@ export default function EventInfoCard({ data }: { data: EventFlattenProps }) {
           </span>
           <span className="grid grid-cols-[1.5rem,auto] items-center gap-3 hover:scale-110 duration-200">
             <AlarmCheck className="text-primary h-5 w-5" />
-            {formatTime(time)}
+            {time}
           </span>
           <span className="grid grid-cols-[1.5rem,auto] items-center gap-3 hover:scale-110 duration-200">
             <MapPinned className="text-primary h-5 w-5" />
