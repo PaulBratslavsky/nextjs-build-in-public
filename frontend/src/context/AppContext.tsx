@@ -44,7 +44,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchData();
   }, []);
 
-  console.log("user", user);
   return (
     <AppContext.Provider value={{ user, setUser }}>
       {children}
