@@ -775,12 +775,15 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     image: Attribute.Media;
     bio: Attribute.Text;
-    social: Attribute.Component<'elements.social', true>;
     events: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::event.event'
     >;
+    twitter: Attribute.String;
+    linkedin: Attribute.String;
+    youtube: Attribute.String;
+    github: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

@@ -2,7 +2,6 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { ArchiveRestore, ArchiveX, Pencil } from "lucide-react";
-import { formatTime } from "@/lib/api-helpers";
 import { StrapiEventData } from "@/types/strapi-custom-types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -82,10 +81,6 @@ export const columns: ColumnDef<StrapiEventData>[] = [
     id: "time",
     accessorKey: "attributes.time",
     header: "Time",
-    cell: ({ row }) => {
-      const time = row.original.attributes.time;
-      return <div>{formatTime(time)}</div>;
-    },
   },
   {
     id: "actions",
