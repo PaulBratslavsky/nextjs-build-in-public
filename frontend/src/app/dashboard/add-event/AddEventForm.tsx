@@ -79,7 +79,7 @@ export function AddEventForm() {
   type EventFormValues = z.infer<typeof eventFormSchema>;
 
   async function onSubmit(values: EventFormValues) {
-    const slug = slugify(values.title, { lower: true });
+    const slug = slugify(values.title, { lower: true,  strict: false, trim: true });
     const hasSlug = await checkSlug(slug);
 
     console.log(hasSlug, "from check slug");

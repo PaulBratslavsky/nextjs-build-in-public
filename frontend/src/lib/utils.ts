@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { format, parse } from "date-fns";
 import { twMerge } from "tailwind-merge";
 import createEvent from "@/actions/create-event-action";
 import updateEvent from "@/actions/update-event-action";
@@ -46,7 +47,7 @@ export async function deleteImage(imageId: string): Promise<string | null> {
   }
 
   const formData = new FormData();
-  formData.set("body", JSON.stringify({ id: imageId }) );
+  formData.set("body", JSON.stringify({ id: imageId }));
 
   try {
     const response = await fetch(`/api/delete`, {
@@ -99,29 +100,22 @@ export async function updateEventOnServer(
   eventData: object,
   id: string
 ): Promise<boolean> {
-  try {
-    const response = await updateEvent(eventData, id);
-    if (!response.ok) throw new Error("Error creating event.");
-    return true;
-  } catch (error) {
-    if (error instanceof Error) {
-      // If error is an instance of Error, it will have a message property
-      renderMessage(error.message, "error");
-    } else {
-      // Fallback for other types of thrown values
-      const errorMessage =
-        typeof error === "string" ? error : "An unknown error occurred";
-      renderMessage(errorMessage, "error");
-    }
+  const response = await updateEvent(eventData, id);
+
+  if (response.error) {
+    renderMessage(response.error.message, "error");
     return false;
+  } else {
+    renderMessage("Event updated successfully!", "success");
+    return true 
   }
+
 }
 
 export async function updateUserOnServer(
   userData: object,
   id: string
 ): Promise<boolean> {
-
   try {
     const response = await updateUser(userData, id);
     if (!response.ok) throw new Error("Error updating user.");
@@ -177,4 +171,22 @@ export function flattenAttributes(data: any): any {
   }
 
   return flattened;
+}
+
+export function checkAndFormatTime(timeString: string) {
+  // Regular expression to match the "HH:mm:ss.SSS" format
+  const timeFormatRegex = /^(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)\.\d{3}$/;
+
+  // Check if the time string matches the "HH:mm:ss.SSS" format
+  if (timeFormatRegex.test(timeString)) {
+    // If it matches, return the time string as is or perform any other necessary action
+    return timeString;
+  } else {
+    // If it doesn't match, run the specific code block
+    const time = format(
+      parse(timeString, "HH:mm", new Date()),
+      "HH:mm:ss.SSS"
+    );
+    return time;
+  }
 }

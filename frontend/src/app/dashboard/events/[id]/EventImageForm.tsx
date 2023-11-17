@@ -79,7 +79,7 @@ export function EventImageForm({ eventData }: { readonly eventData: any }) {
           name="image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Image</FormLabel>
+              <FormLabel>Event Image</FormLabel>
               <FormControl>
                 <ImageField
                   file={file}
@@ -91,12 +91,11 @@ export function EventImageForm({ eventData }: { readonly eventData: any }) {
                   onPreviewImageChange={setPreviewImage}
                 />
               </FormControl>
-              <FormDescription>Event image</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Update Event Image</Button>
+        <Button type="submit">Update Image</Button>
       </form>
     </Form>
   );
