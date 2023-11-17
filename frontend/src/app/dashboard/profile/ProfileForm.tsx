@@ -4,6 +4,7 @@ import updateUserAction from "@/actions/update-user-action";
 
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/FormInput";
+import { Card } from "@/components/ui/card";
 
 export function ProfileForm({ userData }: { userData: any }) {
   const initialState = null;
@@ -11,6 +12,8 @@ export function ProfileForm({ userData }: { userData: any }) {
   const [state, dispatch] = useFormState(updateUserAction as any, initialState);
 
   return (
+    <Card className="p-8 border-none">
+
     <form action={dispatch} className="space-y-8 w-2/3">
       <FormInput
         name="username"
@@ -22,5 +25,6 @@ export function ProfileForm({ userData }: { userData: any }) {
 
       <Button type="submit">Update profile</Button>
     </form>
+    </Card>
   );
 }
