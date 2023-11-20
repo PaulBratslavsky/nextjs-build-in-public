@@ -41,7 +41,7 @@ const myEventsQuery = (currentPage: number, query?: string) =>
         },
         {
           status: {
-            $contains: query,
+            $contains: query?.toUpperCase(),
           },
         },
       ],
