@@ -68,7 +68,6 @@ export default async function MyEventsRoute({
   );
 
   const events = resEvents?.data.data as StrapiEventData[];
-
   if (!events) return null;
 
   return (
