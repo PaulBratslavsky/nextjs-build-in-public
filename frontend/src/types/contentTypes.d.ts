@@ -379,7 +379,6 @@ export interface ApiEventEvent extends Schema.CollectionType {
     description: Attribute.Text;
     location: Attribute.String;
     date: Attribute.Date;
-    time: Attribute.Time;
     image: Attribute.Media;
     user: Attribute.Relation<
       'api::event.event',
@@ -389,6 +388,7 @@ export interface ApiEventEvent extends Schema.CollectionType {
     content: Attribute.RichText;
     status: Attribute.Enumeration<['PUBLIC', 'DRAFT', 'ARCHIVED']> &
       Attribute.DefaultTo<'PUBLIC'>;
+    time: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -7,7 +7,6 @@ import { Archive } from "lucide-react";
 import { columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import PageHeading from "@/components/PageHeading";
-import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 
 const eventsQuery = qs.stringify({
