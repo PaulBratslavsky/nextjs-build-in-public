@@ -379,7 +379,6 @@ export interface ApiEventEvent extends Schema.CollectionType {
     description: Attribute.Text;
     location: Attribute.String;
     date: Attribute.Date;
-    time: Attribute.Time;
     image: Attribute.Media;
     user: Attribute.Relation<
       'api::event.event',
@@ -387,7 +386,9 @@ export interface ApiEventEvent extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     content: Attribute.RichText;
-    isPublic: Attribute.Boolean & Attribute.DefaultTo<false>;
+    status: Attribute.Enumeration<['PUBLIC', 'DRAFT', 'ARCHIVED']> &
+      Attribute.DefaultTo<'PUBLIC'>;
+    time: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -774,12 +775,15 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     image: Attribute.Media;
     bio: Attribute.Text;
-    social: Attribute.Component<'elements.social', true>;
     events: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::event.event'
     >;
+    twitter: Attribute.String;
+    linkedin: Attribute.String;
+    youtube: Attribute.String;
+    github: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

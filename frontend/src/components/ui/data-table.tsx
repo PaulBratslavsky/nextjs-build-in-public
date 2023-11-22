@@ -57,7 +57,7 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-hidden">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -85,11 +85,14 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                   
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="px-3 py-1">
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell) => {
+                    console.log(cell.id, "CELL")
+                    return (
+                      <TableCell key={cell.id} className="px-3 py-1">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    )
+                  })}
                 </TableRow>
               ))
             ) : (

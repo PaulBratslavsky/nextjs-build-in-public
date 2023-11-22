@@ -32,7 +32,6 @@ function EventHeader({ data }: { data: EventFlattenProps }) {
 }
 
 function EventContent({ data }: { data: EventFlattenProps }) {
-  console.log(data, "DATA");
   const { content } = data;
   return (
     <div>
@@ -51,36 +50,3 @@ export default function EventDetails({ data }: { data: EventFlattenProps }) {
     </div>
   );
 }
-
-/* <p className="text-muted-foreground tracking-wide pt-6">
-        Quam amet tristique adipisicing incididunt arcu, excepturi molestie
-        turpis deserunt ducimus malesuada minus mauris veniam. Veniam
-        exercitationem? Phasellus? Officia pulvinar sem cumque? Quo? Unde natus,
-        ducimus non illum facilisi voluptatem quisque.
-      </p>
-      <ul className="py-4 grid grid-cols-2 gap-1 group">
-        <li className="grid grid-cols-[1rem,auto]  items-center gap-2 duration-200">
-          <CheckCircle2 className="w-4 h-4 text-primary" />
-          <p className="text-muted-foreground font-medium hover:text-secondary">
-            Huge Achivement
-          </p>
-        </li>
-        <li className="grid grid-cols-[1rem,auto] items-center gap-2 duration-200">
-          <CheckCircle2 className="w-4 h-4 text-primary" />
-          <p className="text-muted-foreground hover:text-secondary font-medium">
-            Huge Achivement
-          </p>
-        </li>
-        <li className="grid grid-cols-[1rem,auto] items-center gap-2 duration-200">
-          <CheckCircle2 className="w-4 h-4 text-primary" />
-          <p className="text-muted-foreground hover:text-secondary font-medium">
-            Huge Achivement
-          </p>
-        </li>
-        <li className="grid grid-cols-[1rem,auto] items-center gap-2 duration-200">
-          <CheckCircle2 className="w-4 h-4 text-primary" />
-          <p className="text-muted-foreground hover:text-secondary font-medium">
-            Huge Achivement
-          </p>
-        </li>
-      </ul> */

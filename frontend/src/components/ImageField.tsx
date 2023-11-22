@@ -14,7 +14,6 @@ interface ImageFieldProps {
 
 export function ImageField({
   name,
-  file,
   onFileChange,
   previewImage,
   onPreviewImageChange,
@@ -26,8 +25,6 @@ export function ImageField({
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
-
-    console.log(selectedFile, "qweweqrqwer");
 
     // If no file is selected, set file to undefined
     if (!selectedFile) {
@@ -65,11 +62,11 @@ export function ImageField({
     <React.Fragment>
       <Input name={name} type="file" onChange={handleImageChange} />
       {displayedPreview && (
-        <div className="mt-4">
+        <div>
           <img
             src={displayedPreview}
             alt="Profile Preview"
-            style={{ maxWidth: "200px" }}
+            className="rounded-lg mt-4"
           />
         </div>
       )}

@@ -5,18 +5,12 @@ import { unstable_noStore as noStore } from "next/cache";
 
 const query = (slug: string) =>
   qs.stringify({
-    populate: {
-      image: {
-        fields: ["url", "alternativeText"],
-      },
-    },
     filters: {
       slug: slug,
     },
   });
 
 const getEventsDetailsLoader = async (slug: string) => {
-  console.log("getEventsDetails", slug);
   noStore();
   const url = query
     ? `${process.env.STRAPI_URL}/api/events?${query(slug)}`

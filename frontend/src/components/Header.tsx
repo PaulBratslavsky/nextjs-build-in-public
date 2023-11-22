@@ -47,8 +47,6 @@ const Header = ({ data }: { data: HeaderProps }) => {
     data.data.attributes.logo.image.data.attributes.url
   );
 
-  console.log(imageUrl, "IMAGE URL");
-
   function renderNavItems(navItems: HeroNavItem[]) {
     return navItems.map((navItem: HeroNavItem) => {
       const { id, text, href, isButton } = navItem;
@@ -64,15 +62,9 @@ const Header = ({ data }: { data: HeaderProps }) => {
         );
       } else {
         return (
-          <Button asChild variant="ghost" className="hover:bg-muted">
-            <Link
-              key={id}
-              href={href}
-            >
-              {text}
-            </Link>
+          <Button asChild variant="ghost" className="hover:bg-muted" key={id}>
+            <Link href={href}>{text}</Link>
           </Button>
-          
         );
       }
     });
@@ -83,8 +75,6 @@ const Header = ({ data }: { data: HeaderProps }) => {
   }
 
   const { user } = useAppContext() as any;
-
-  console.log(user);
 
   return (
     <header className="bg-white sticky top-0 z-20 border-b backdrop-blur">
@@ -102,11 +92,7 @@ const Header = ({ data }: { data: HeaderProps }) => {
           <div className="flex items-center gap-5">
             <p>{user.username}</p>
             <Button asChild variant="ghost" className="hover:bg-muted">
-              <Link
-                href="/dashboard"
-              >
-                Dashboard
-              </Link>
+              <Link href="/dashboard">Dashboard</Link>
             </Button>
             <LogoutButton />
             <Link
