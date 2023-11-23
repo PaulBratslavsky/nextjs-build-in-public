@@ -1,7 +1,7 @@
 "use client"
 import { StrapiEventData } from "@/types/strapi-custom-types"
 
-import { updateEventOnServer } from "@/lib/utils";
+import { updateEventOnServer } from "@/lib/utils"
 import {  ArchiveRestore, Eye, EyeOff, ArchiveX, Pencil, MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
