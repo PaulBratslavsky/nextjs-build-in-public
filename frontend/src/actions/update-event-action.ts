@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import meAction from "../loaders/get-me-loader";
 import { revalidatePath } from "next/cache";
 
-async function updateEventAction(formData: object, id: string) {
+async function updateEventAction(formData: object, id: number) {
   try {
     const authToken = cookies().get("jwt")?.value;
     if (!authToken) return { error: "No JWT", ok: false };

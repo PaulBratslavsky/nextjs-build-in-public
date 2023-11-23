@@ -1,16 +1,15 @@
-import qs from "qs";
-import { Suspense } from "react";
-import type { StrapiEventData } from "@/types/strapi-custom-types";
-import getEventsAuthLoader from "@/loaders/get-events-auth-loader";
-import SearchInput from "@/components/SearchInput";
+import qs from "qs"
+import { Suspense } from "react"
+import { StrapiEventData } from "@/types/strapi-custom-types"
+import getEventsAuthLoader from "@/loaders/get-events-auth-loader"
 
-import { columns } from "./columns";
-import { DataTable } from "@/components/ui/data-table";
-import PageHeading from "@/components/PageHeading";
-import { Card } from "@/components/ui/card";
-import Pagination from "@/components/Pagination";
+import { columns } from "./columns"
+import { DataTable } from "@/components/ui/data-table"
+import PageHeading from "@/components/PageHeading"
+import { Card } from "@/components/ui/card"
+import Pagination from "@/components/Pagination"
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 10
 
 const myEventsQuery = (currentPage: number, query?: string) =>
   qs.stringify({
@@ -74,8 +73,7 @@ export default async function MyEventsRoute({
     <div className="space-y-6 container mx-auto">
       <PageHeading heading="My Events" subheading="Manage your events." />
       <Suspense fallback={<div>Loading...</div>}>
-        <Card className="p-8  space-y-6 border-none">
-          <SearchInput placeholder="Search events..." />
+        <Card className="p-8 space-y-6 border-none">
           <DataTable columns={columns} data={events} />
           <div className="mt-5 flex w-full justify-center">
             <Pagination totalPages={1} />

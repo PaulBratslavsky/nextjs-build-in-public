@@ -98,7 +98,7 @@ export async function createEventOnServer(
 
 export async function updateEventOnServer(
   eventData: object,
-  id: string
+  id: number
 ): Promise<boolean> {
   const response = await updateEvent(eventData, id);
 

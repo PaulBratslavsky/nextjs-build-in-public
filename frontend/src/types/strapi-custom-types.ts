@@ -73,6 +73,7 @@ export interface StrapiEventData {
     updatedAt: string;
     publishedAt: string;
     image: Image;
+    status: String;
   };
 }
 
