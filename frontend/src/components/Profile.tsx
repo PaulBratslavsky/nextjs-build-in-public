@@ -23,15 +23,18 @@ const Profile = () => {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-            <AvatarImage src={"http://localhost:1337" + user.image.url } />
+            <AvatarImage src={"http://localhost:1337" + user.image?.url } />
             <AvatarFallback>AVA</AvatarFallback>
           </Avatar>               
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="space-y-2">
+        <DropdownMenuContent className="space-y-1">
           <DropdownMenuLabel>Logged as {user?.username}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => router.push("/dashboard")}>
             Dashboard
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/dashboard/events")}>
+            My Events
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => router.push("/dashboard/profile")}>
             Profile

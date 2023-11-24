@@ -11,8 +11,8 @@ function EventHeader({ data }: { data: EventFlattenProps }) {
   const altText = data.image?.alternativeText;
   const { title, description, location, date, time } = data;
   return (
-    <div>
-      <div className="relative w-full h-[200px] md:h-[400px] px-10 rounded-3xl overflow-hidden">
+    <>
+      <div className="relative w-full h-[200px] md:h-[400px] rounded-3xl overflow-hidden">
         <Image
           src={urlImage ? urlImage : ""}
           fill
@@ -20,14 +20,13 @@ function EventHeader({ data }: { data: EventFlattenProps }) {
           className="object-cover"
         />
       </div>
-
       <div>
         <h2 className="uppercase text-3xl font-semibold leading-tight tracking-tight my-6">
           {title}
         </h2>
         <p className="text-muted-foreground tracking-wide">{description}</p>
       </div>
-    </div>
+    </>
   );
 }
 

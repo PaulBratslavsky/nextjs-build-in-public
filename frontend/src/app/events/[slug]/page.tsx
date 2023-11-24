@@ -16,12 +16,12 @@ const DetailPage = async ({
 
   return (
     <div className="container my-10">
-      <div className="grid lg:grid-cols-[auto,30%] gap-12 lg:gap-32">
+      <div className="grid grid-cols-1 lg:grid-cols-[auto,30%] gap-12 lg:gap-20">
         <Suspense fallback={<div>Loading...</div>}>
           <EventDetail data={eventData}/>
           <div>
-          <UserAvatarCard data={eventData.user}/>
-          <EventInfoCard data={eventData}/>
+            <UserAvatarCard data={eventData.user}/>
+            <EventInfoCard data={eventData}/>
           </div>
         </Suspense>
       </div>
