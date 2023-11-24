@@ -75,9 +75,9 @@ export default async function MyEventsRoute({
       <Suspense fallback={<div>Loading...</div>}>
         <Card className="p-8 space-y-6 border-none">
           <DataTable columns={columns} data={events} />
-          <div className="mt-5 flex w-full justify-center">
+          {/* <div className="mt-5 flex w-full justify-center">
             <Pagination totalPages={1} />
-          </div>
+          </div> */}
         </Card>
       </Suspense>
     </div>
