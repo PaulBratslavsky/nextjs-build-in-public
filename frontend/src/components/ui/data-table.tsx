@@ -49,7 +49,7 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4">
           <Input
-            placeholder="Filter..."
+            placeholder="Search..."
             value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
               table.getColumn("title")?.setFilterValue(event.target.value)
@@ -86,7 +86,7 @@ export function DataTable<TData, TValue>({
                   
                 >
                   {row.getVisibleCells().map((cell) => {
-                    console.log(cell.id, "CELL")
+                    // console.log(cell.id, "CELL")
                     return (
                       <TableCell key={cell.id} className="px-3 py-1">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

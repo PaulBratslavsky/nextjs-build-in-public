@@ -1,9 +1,10 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { getStrapiMedia } from "@/lib/api-helpers";
-import { useAppContext } from "@/context/AppContext";
-import Link from "next/link";
-import LogoutButton from "@/components/LogoutButton";
+"use client"
+import Link from "next/link"
+import { useAppContext } from "@/context/AppContext"
+import { getStrapiMedia } from "@/lib/api-helpers"
+
+import { Button } from "@/components/ui/button"
+import Profile from "@/components/Profile"
 
 interface HeroNavItem {
   id: string;
@@ -43,10 +44,11 @@ interface HeaderProps {
 }
 
 const Header = ({ data }: { data: HeaderProps }) => {
+  const { user } = useAppContext() as any
   const imageUrl = getStrapiMedia(
     data.data.attributes.logo.image.data.attributes.url
   );
-
+  
   function renderNavItems(navItems: HeroNavItem[]) {
     return navItems.map((navItem: HeroNavItem) => {
       const { id, text, href, isButton } = navItem;
@@ -62,19 +64,13 @@ const Header = ({ data }: { data: HeaderProps }) => {
         );
       } else {
         return (
-          <Button asChild variant="ghost" className="hover:bg-muted" key={id}>
+          <Button asChild variant="ghost" key={id}>
             <Link href={href}>{text}</Link>
           </Button>
         );
       }
     });
   }
-
-  async function handleLogout() {
-    alert("Logout");
-  }
-
-  const { user } = useAppContext() as any;
 
   return (
     <header className="bg-white sticky top-0 z-20 border-b backdrop-blur">
@@ -90,17 +86,13 @@ const Header = ({ data }: { data: HeaderProps }) => {
         </nav>
         {user ? (
           <div className="flex items-center gap-5">
-            <p>{user.username}</p>
-            <Button asChild variant="ghost" className="hover:bg-muted">
-              <Link href="/dashboard">Dashboard</Link>
-            </Button>
-            <LogoutButton />
             <Link
               href="/dashboard/add-event"
               className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 px-4 py-2 bg-primary hover:bg-accent"
             >
               Add Event
             </Link>
+            <Profile />
           </div>
         ) : (
           <div className="flex items-center gap-5">
