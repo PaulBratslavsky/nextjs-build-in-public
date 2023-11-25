@@ -36,7 +36,7 @@ const eventFormSchema = z.object({
 });
 
 export function ProfileForm({ userData }: { userData: any }) {
-  console.log(userData.data, "from profile form");
+  // console.log(userData.data, "from profile form");
   const { username, email, bio, twitter, youtube, linkedin, github } =
     userData.data;
 

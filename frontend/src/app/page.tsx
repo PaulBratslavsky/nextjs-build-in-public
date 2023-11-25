@@ -4,8 +4,8 @@ import qs from "qs";
 // Lib
 import fetcher from "@/lib/fetcher";
 import { sectionRenderer } from "@/lib/section-renderer";
-import EventList from "@/components/EventsList";
-import CTASection from "@/components/CTASection";
+import EventList from "@/components/EventsList"
+import CTASection from "@/components/CTASection"
 
 const homePageQuery = qs.stringify({
   populate: {
@@ -35,6 +35,8 @@ const eventsQuery = qs.stringify({
   },
 });
 
+
+
 export default async function Home() {
   const resHomePage = await fetcher("home-page", homePageQuery);
   const homePage =
@@ -49,14 +51,9 @@ export default async function Home() {
         {sections.map((section: any, index: number) =>
           sectionRenderer(section, index)
         )}
-        <EventList eventsQuery={eventsQuery} />
+        <EventList eventsQuery={eventsQuery}/>
       </div>
-      <CTASection
-        subHeading="join the event"
-        heading="don't miss the opportunity, grab your tickets now!"
-        text="Quam amet tristique adipisicing incididunt arcu, excepturi molestie turpis deserunt ducimus malesuada minus mauris veniam.excepturi molestie turpis deserunt ducimus malesuada minus mauris veniam."
-        linkLabel="Choose your event"
-      />
+      <CTASection />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import Link from "next/link"
 
 const CTASection = ({
-  subHeading,
-  heading,
-  text,
-  linkLabel,
+  subHeading = "join the event",
+  heading = "don't miss the opportunity, grab your tickets now!",
+  text = "Quam amet tristique adipisicing incididunt arcu, excepturi molestie turpis deserunt ducimus malesuada minus mauris veniam.excepturi molestie turpis deserunt ducimus malesuada minus mauris veniam.",
+  linkLabel = "Choose your event"
 }: {
   subHeading: string;
   heading: string;

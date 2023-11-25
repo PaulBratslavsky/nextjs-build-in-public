@@ -139,7 +139,7 @@ export function AddEventForm() {
                     onPreviewImageChange={setPreviewImage}
                   />
                 </FormControl>
-                <FormDescription>Location of the event.</FormDescription>
+                <FormDescription>Add cool image of the event.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
