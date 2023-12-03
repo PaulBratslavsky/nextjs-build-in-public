@@ -27,22 +27,22 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  readonly children: React.ReactNode;
 }) {
   const res = await fetcher("global", query);
 
   //TODO: HANDLE ERROR
   if (res === null) return <></>;
 
-  const global = (await res.json());
+  const global = await res.json();
 
   return (
     <html lang="en" className="h-auto">
       <body className={inter.className}>
         <AppProvider>
-        <Toaster />
-        <Header data={global} />
-        {children}
+          <Toaster />
+          <Header data={global} />
+          {children}
         </AppProvider>
       </body>
     </html>
